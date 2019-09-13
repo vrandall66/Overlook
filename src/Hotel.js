@@ -6,33 +6,27 @@ class Hotel {
     this.roomServices = roomServices;
   }
 
-  getDate() {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-
-    today = `${yyyy}/${mm}/${dd}`;
-    return today;
-  }
-
   totalRoomsAvailable(date) {
-    let today = this.getDate();
     let roomsAvailable = this.bookings.filter(room => {
-      if (room.date === today) {
+      if (room.date === date) {
         return room;
       }
     })
     return roomsAvailable;
   }
 
-  findRoomsBooked() {
-
+  findRoomsBooked(date) {
+    return this.bookings.filter((booking) => {
+      return booking.date === date;
+    })
   }
 
-  findRoomsServiced() {
-
+  findRoomsServiced(date) {
+    return this.roomServices.filter((room) => {
+      return room.date === date;
+    })
   }
+
 }
 
 export default Hotel;

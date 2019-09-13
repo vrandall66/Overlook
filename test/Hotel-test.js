@@ -27,7 +27,7 @@ describe('Hotel', () => {
 
   it('should get total rooms available on current date', () => {
     expect(hotel.totalRoomsAvailable).to.be.a('function');
-    expect(hotel.totalRoomsAvailable()).to.eql([]);
+    expect(hotel.totalRoomsAvailable()).to.eql('');
   })
 
   it('should ')

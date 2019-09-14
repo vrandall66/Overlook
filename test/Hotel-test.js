@@ -20,14 +20,9 @@ describe('Hotel', () => {
     expect(hotel).to.be.an.instanceof(Hotel);
   })
 
-  it('should get today\'s date', () => {
-    expect(hotel.getDate).to.be.a('function');
-    expect(hotel.getDate()).to.equal(hotel.getDate())
-  })
-
   it('should get total rooms available on current date', () => {
     expect(hotel.totalRoomsAvailable).to.be.a('function');
-    expect(hotel.totalRoomsAvailable()).to.eql('');
+    expect(hotel.totalRoomsAvailable('2019/07/28')).to.eql([]);
   })
 
   it('should ')

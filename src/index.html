@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
   <head>
     <title>Overlook Hotel Management</title>
-    <link href="https://fonts.googleapis.com/css?family=Manjari:100,400,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Manjari:100,400,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -18,33 +20,56 @@
       <section class="all-tabs">
         <section id="main-tab">
           <h2>Homepage</h2>
-          <div class="total-rooms-available container">Total Rooms Available
-            <ul class="room-types-available">
-            <li>Number of single rooms</li>
-            <li>Number of suites</li>
-            <li>Number of junior suites</li>
-            <li>Number of residential suites</li>
-            </ul>
+          <div class="left-main-container">
+            <div class="total-rooms-available container">
+              <h5>Total Rooms Available</h5>
+              <p id="rooms-available-number"></p>
+              <ul class="room-types-available">
+                <li>Number of single rooms</li>
+                <li>Number of suites</li>
+                <li>Number of junior suites</li>
+                <li>Number of residential suites</li>
+              </ul>
+            </div>
           </div>
-          <div class="daily-information container">All Daily
-            <p>Room Service Charges</p>
-            <p>Bookings information</p>
+          <div class="center-main-container">
+            <div class="daily-information container">
+              <h2>All Daily</h2>
+              <div>
+                <h4>Room Service Charges</h4>
+                <p id="room-service-charges-day"></p>
+              </div>
+              <div>
+                <h4>Bookings information</h4>
+                <p id="daily-bookings"></p>
+              </div>
+            </div>
           </div>
-          <div class="today-date container">Today's Date
-            <p id="today">mm/dd/yyyy</p>
+          <div class="right-main-container">
+            <div class="today-date container">
+              <h2>Today's Date</h2>
+              <p id="today">mm/dd/yyyy</p>
+            </div>
+            <div class="daily-revenue container">
+              <h2>Total Daily Revenue</h2>
+              <p id="daily-revenue"></p>
+            </div>
+            <div class="rooms-available container">
+              <h2>Percentage of rooms available</h2>
+              <p id="rooms-available-percentage"></p>
+            </div>
           </div>
-          <div class="daily-revenue container">Total Daily Revenue</div>
-          <div class="rooms-available container">Percentage of rooms available</div>
         </section>
         <section id="customers-tab">
           <h2>Current Customer</h2>
-          <input type="search">
-          <input type="button">
-          <div class="guest-stay-information container">Duration of stay
+          <input type="search" />
+          <input type="button" />
+          <div class="guest-stay-information container">
+            <h2>Duration of stay</h2>
             <p>Room #</p>
             <p>Room type</p>
             <p>Total Room Service Charges</p>
-            </div>
+          </div>
         </section>
         <section id="orders-tab">
           <h2>Room service orders</h2>
@@ -57,5 +82,4 @@
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
-
 </html>

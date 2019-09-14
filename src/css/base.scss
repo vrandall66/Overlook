@@ -1,10 +1,11 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-@import 'variables';
+@import "variables";
 
 * {
   background-color: $other-background;
-  // border: 1px solid red;
-  font-family: 'Manjari', sans-serif;
+  border: 1px solid red;
+  box-sizing: border-box;
+  font-family: "Manjari", sans-serif;
   margin: 0;
 }
 
@@ -20,10 +21,8 @@ main {
 
 ul {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   list-style: none;
-  width: 60%
+  width: 80%;
 }
 
 .tabs-nav li {
@@ -61,9 +60,24 @@ a:hover {
   cursor: default;
 }
 
-.tabs-nav {
-  border: 1px solid #cecfd5;
-  border-radius: 0 0 6px 6px;
-  border-top: 0;
-  padding: 24px 30px;
+#main-tab {
+  align-content: center;
+  display: flex;
+  height: 85vh;
+  justify-content: center;
+}
+
+.left-main-container,
+.center-main-container,
+.right-main-container {
+  height: 85vh;
+  width: 33%;
+}
+
+.container {
+  height: 16em;
+}
+
+.today-date {
+  height: 8em;
 }

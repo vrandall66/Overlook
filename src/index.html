@@ -1,13 +1,61 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
   <head>
     <title>Overlook Hotel Management</title>
+    <link href="https://fonts.googleapis.com/css?family=Manjari:100,400,700&display=swap" rel="stylesheet">
   </head>
+
   <body>
     <h1>Overlook Hotel Management</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <main class="tabs">
+      <ul class="tabs-nav">
+        <li><a href="#main-tab">Dashboard</a></li>
+        <li><a href="#customers-tab">Customer</a></li>
+        <li><a href="#orders-tab">Orders</a></li>
+        <li><a href="#bookings-tab">Bookings</a></li>
+      </ul>
+      <section class="all-tabs">
+        <section id="main-tab">
+          <h2>Homepage</h2>
+          <div class="total-rooms-available container">Total Rooms Available
+            <ul class="room-types-available">
+            <li>Number of single rooms</li>
+            <li>Number of suites</li>
+            <li>Number of junior suites</li>
+            <li>Number of residential suites</li>
+            </ul>
+          </div>
+          <div class="daily-information container">All Daily
+            <p>Room Service Charges</p>
+            <p>Bookings information</p>
+          </div>
+          <div class="today-date container">Today's Date
+            <p id="today">mm/dd/yyyy</p>
+          </div>
+          <div class="daily-revenue container">Total Daily Revenue</div>
+          <div class="rooms-available container">Percentage of rooms available</div>
+        </section>
+        <section id="customers-tab">
+          <h2>Current Customer</h2>
+          <input type="search">
+          <input type="button">
+          <div class="guest-stay-information container">Duration of stay
+            <p>Room #</p>
+            <p>Room type</p>
+            <p>Total Room Service Charges</p>
+            </div>
+        </section>
+        <section id="orders-tab">
+          <h2>Room service orders</h2>
+        </section>
+        <section id="bookings-tab">
+          <h2>Display the bookings</h2>
+        </section>
+      </section>
+    </main>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
+
 </html>

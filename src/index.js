@@ -1,5 +1,6 @@
 // An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
+import domUpdates from './domUpdates';
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
@@ -9,33 +10,42 @@ import './images/turing-logo.png'
 
 console.log('This is the JavaScript entry file - your code begins here.');
 
+onPageLoad();
 
-let users, rooms, bookings, roomServices;
+function onPageLoad() {
+  displayMain();
+  getDate();
+}
 
-fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users")
-  .then(data => data.json())
-  .then(data => users = data.users)
-  .catch(err => console.log('users err', err));
+let hotel;
 
-setTimeout(() => console.log('users', users), 1000);
+Promise.all([
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users").then(response => response.json()),
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms").then(response => response.json()),
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings").then(response => response.json()),
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices").then(response => response.json()),
+]).then(data => hotel = new Hotel(data[0].users, data[1].rooms, data[2].bookings, data[3].roomServices))
 
-fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms")
-  .then(data => data.json())
-  .then(data => rooms = data.rooms)
-  .catch(err => console.log('rooms err', err));
+function displayMain() {
+  $('.all-tabs section').hide();
+  $('.all-tabs section:first').show();
+  $('.tabs-nav li:first').addClass('current')
+}
 
-setTimeout(() => console.log('rooms', rooms), 1000);
+$('.tabs-nav a').on('click', function (event) {
+  event.preventDefault();
+  $('.tabs-nav li').removeClass('current');
+  $(this).parent().addClass('current');
+  $('.all-tabs section').hide();
+  $($(this).attr('href')).show();
+});
 
-fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings")
-  .then(data => data.json())
-  .then(data => bookings = data.bookings)
-  .catch(err => console.log('bookings', err));
+function getDate() {
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  let yyyy = today.getFullYear();
 
-setTimeout(() => console.log('bookings', bookings), 1000);
-
-fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices")
-  .then(data => data.json())
-  .then(data => roomServices = data.roomServices)
-  .catch(err => console.log('roomServices err', err));
-
-setTimeout(() => console.log('roomServices', roomServices), 1000);
+  today = `${mm}/${dd}/${yyyy}`;
+  domUpdates.displayDate(today);
+}

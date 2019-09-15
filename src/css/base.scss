@@ -2,11 +2,19 @@
 @import "variables";
 
 * {
-  background-color: $other-background;
   border: 1px solid red;
   box-sizing: border-box;
   font-family: "Manjari", sans-serif;
   margin: 0;
+}
+
+body {
+  background-color: $other-background;
+}
+
+h1 {
+  color: $main-font;
+  margin-top: 1.5%;
 }
 
 main {

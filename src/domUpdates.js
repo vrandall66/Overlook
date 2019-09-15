@@ -6,8 +6,7 @@ const domUpdates = {
   },
 
   displayDailyBookedRooms(number) {
-    let dailyBookings = $("#daily-bookings");
-    $(`<h5>${number}</h5>`).appendTo(dailyBookings);
+    $("#daily-bookings").text(number);
   },
 
   displayPercentageOfBookings(percentage) {
@@ -20,6 +19,10 @@ const domUpdates = {
 
   displayRoomsAvailableToday(number) {
     $('#rooms-available-number').text(number);
+  },
+
+  displayRoomServiceCharges(revenue) {
+    $('#room-service-charges-day').text(revenue);
   }
 };
 

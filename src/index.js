@@ -1,6 +1,7 @@
 import $ from "jquery";
 import domUpdates from "./domUpdates";
 import Hotel from "./Hotel.js";
+import Guest from "./Guest.js";
 import Booking from "./Booking.js";
 
 // An example of how you tell webpack to use a CSS (SCSS) file
@@ -34,19 +35,41 @@ let bookingsData = fetch(
 ).then(response => response.json());
 let roomServicesData = fetch(
   "https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices"
-)
-  .then(response => response.json())
+).then(response => response.json());
 
-let data = { customers: {}, rooms: {}, bookings: {}, roomServices: {} };
+let allData = { customers: {}, rooms: {}, bookings: {}, roomServices: {} };
+let allCustomers = [];
 
 Promise.all([usersData, roomsData, bookingsData, roomServicesData])
   .then(values => {
-    data['customers'] = values[0];
-    data['rooms'] = values[1];
-    data['bookings'] = values[2];
-    data['roomServices'] = values[3];
-    return data;
-  }).then(data => new Hotel(data.customers, data.rooms, data.bookings, data.roomServices, getDate()))
+    allData.customers = values[0];
+    allData.rooms = values[1];
+    allData.bookings = values[2];
+    allData.roomServices = values[3];
+    return allData;
+  })
+  .then(
+    allData =>
+      new Hotel(
+        allData.customers,
+        allData.rooms,
+        allData.bookings,
+        allData.roomServices,
+        getDate()
+      )
+  )
+  .then(instantiateCustomers());
+
+function instantiateCustomers() {
+  setTimeout(() => {
+    let guests = allData.customers.users;
+    guests.forEach(guest => {
+      let newGuest = new Guest(guest);
+      allCustomers.push(newGuest);
+    });
+    return allCustomers;
+  }, 1000);
+}
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -68,7 +91,7 @@ function getDate() {
   let yyyy = today.getFullYear();
 
   today = `${yyyy}/${mm}/${dd}`;
-  let todayDom = `${mm}/${dd}/${yyyy}`
+  let todayDom = `${mm}/${dd}/${yyyy}`;
   domUpdates.displayDate(todayDom);
   return today;
 }

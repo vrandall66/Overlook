@@ -1,9 +1,9 @@
 import domUpdates from "./domUpdates";
 
 class Guest {
-  constructor(data, name) {
-    this.data = data;
-    this.name = name;
+  constructor(guest) {
+    this.id = guest.id;
+    this.name = guest.name;
   }
 
   findUser(name) {

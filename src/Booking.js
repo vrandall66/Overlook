@@ -14,8 +14,13 @@ class Booking {
     });
     let sorted = booked.sort((a, b) => {
       return a.roomNumber - b.roomNumber;
-    }).map(room => room.roomNumber);
+    });
     return sorted;
+  }
+
+  showBookedRooms() {
+    let found = this.findBookedRooms();
+    return found.map(room => room.roomNumber);
   }
 
   totalRoomsAvailableToday() {
@@ -47,7 +52,7 @@ class Booking {
     domUpdates.displayPercentageOfBookings(this.percentageOfRoomsOccupiedToday());
     domUpdates.displayBookingRevenueToday(this.totalBookingRevenueToday());
     domUpdates.displayRoomsAvailableToday(this.totalRoomsAvailableToday());
-    domUpdates.displayDailyBookedRooms(this.findBookedRooms());
+    domUpdates.displayDailyBookedRooms(this.showBookedRooms());
   }
 }
 

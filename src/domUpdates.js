@@ -10,19 +10,19 @@ const domUpdates = {
   },
 
   displayPercentageOfBookings(percentage) {
-    $('#rooms-available-percentage').text(percentage);
+    $("#rooms-available-percentage").text(percentage);
   },
 
   displayBookingRevenueToday(dailyBookings) {
-    $('#daily-revenue').text(dailyBookings)
+    $("#daily-revenue").text(dailyBookings);
   },
 
   displayRoomsAvailableToday(number) {
-    $('#rooms-available-number').text(number);
+    $("#rooms-available-number").text(number);
   },
 
   displayRoomServiceCharges(revenue) {
-    $('#room-service-charges-day').text(revenue);
+    $("#room-service-charges-day").text(revenue);
   }
 };
 

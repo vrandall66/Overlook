@@ -6,7 +6,6 @@ import Guest from "./Guest.js";
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
 
-
 $(".tabs-nav a").on("click", function(event) {
   event.preventDefault();
   $(".tabs-nav li").removeClass("current");
@@ -68,7 +67,7 @@ function instantiateCustomers() {
 
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
-$('#select-customer-button').on('click', filterForCustomerData);
+$("#select-customer-button").on("click", filterForCustomerData);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -102,16 +101,22 @@ function searchForCustomer() {
   if (nameInput === "") {
     return;
   } else {
-    findUser(nameInput);
+    findUserFromInput(nameInput);
   }
 }
 
-function findUser(nameInput) {
+function findUserFromInput(nameInput) {
   let filtered = allCustomers.filter(person => {
     let name = Object.values(person)[1].toUpperCase();
     return name.includes(nameInput);
   });
   filtered.forEach(guest => domUpdates.displayFilteredCustomers(guest));
+}
+
+function findUserFromSelect(selected) {
+  return allCustomers.find(person => {
+    return person.id === parseInt(selected);
+  })
 }
 
 function createGuest(e) {
@@ -121,36 +126,67 @@ function createGuest(e) {
   let newGuestObject = {
     id: newGuestId,
     name: nameInput
-  }
+  };
   let newGuest = new Guest(newGuestObject);
-  allCustomers.push(newGuest)
+  allCustomers.push(newGuest);
+  Hotel.currentCustomer = newGuest;
 }
 
 function filterForCustomerData() {
-  let selected = $('#name-option').val();
+  let selected = $("#name-option").val();
+  let user = findUserFromSelect(selected)
   let bookings = allData.bookings.bookings;
   let roomService = allData.roomServices.roomServices;
   let userBookings = findCustomerData(selected, bookings);
   let userRoomServices = findCustomerData(selected, roomService);
+  Hotel.currentCustomer = user;
   appendUserBookingsData(userBookings);
   appendUserRoomServiceData(userRoomServices);
+  totalMoneySpentOnRoomService(user);
+  moneySpentOnRoomService(getDate(), user);
 }
 
 function findCustomerData(selected, data) {
   let filtered = data.filter(log => {
-    return log.userID == selected;
+    return log.userID === parseInt(selected);
   });
-  return filtered
+  return filtered;
 }
 
 function appendUserBookingsData(filteredData) {
   filteredData.forEach(log => {
     domUpdates.displayPreviousBookings(log);
-  })
+  });
 }
 
 function appendUserRoomServiceData(filteredData) {
   filteredData.forEach(log => {
     domUpdates.displayPreviousRoomServices(log);
+  });
+}
+
+function totalMoneySpentOnRoomService(user) {
+  let allOrders = allData.roomServices.roomServices.filter((order) => {
+    return order.userID === user.id;
+  });
+  let totalMoney = allOrders.reduce((money, currentOrder) => {
+    money += currentOrder.totalCost;
+    return money;
+  }, 0)
+  domUpdates.displayMoneySpentOnRoomService(totalMoney);
+  return totalMoney;
+}
+
+function moneySpentOnRoomService(date, user) {
+  let ordersToday = allData.roomServices.roomServices.filter((order) => {
+    return order.date.includes(date);
+  });
+  let userOrdersToday = ordersToday.filter(eachOrder => {
+    return eachOrder.userID === user.id;
   })
+  let userTotalSpentFood = userOrdersToday.reduce((money, currentOrder) => {
+    money += currentOrder.totalCost;
+    return money;
+  }, 0);
+  return userTotalSpentFood;
 }

@@ -32,11 +32,25 @@ const domUpdates = {
   },
 
   displayPreviousBookings(customer) {
-    $(`<span data-id="${customer.id}">${customer.date}: ${customer.roomNumber}</span>`).appendTo($('#all-previous-bookings'))
+    $(
+      `<span data-id="${customer.id}">Booking Date: ${customer.date} Room Number: ${customer.roomNumber}</span>`
+    ).appendTo($("#all-previous-bookings"));
   },
 
   displayPreviousRoomServices(customer) {
-    $(`<span data-id="${customer.id}">${customer.date}: ${customer.food}, ${customer.totalCost}</span>`).appendTo($('#all-previous-room-service-orders'))
+    $(
+      `<span data-id="${customer.id}">Order Date: ${customer.date}: Item Ordered: ${customer.food}: ${customer.totalCost}</span>`
+    ).appendTo($("#all-previous-room-service-orders"));
+  },
+
+  displayAllRoomServiceOrders(order) {
+    $(
+      `<span data-id="${order.userId}">Order Date: ${order.date}: Guest: ${order.userID} Item Ordered: ${order.food}: ${order.totalCost}</span>`
+    ).appendTo($("#daily-room-service-orders"));
+  },
+
+  displayMoneySpentOnRoomService(amount) {
+    $(`<p class="orders-tab-p">${amount}</p>`).appendTo($('#total-spent-on-service'));
   }
 };
 

@@ -12,6 +12,7 @@ class Guest {
     });
     return parseInt(guestIndex) + 1;
   }
+
 }
 
 export default Guest;

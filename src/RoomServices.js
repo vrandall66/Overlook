@@ -34,7 +34,7 @@ class RoomServices {
   allDailyOrderedItems(date) {
     let allOrders = this.findAllRoomService(date);
     let orderedItems = allOrders.map(order => {
-      console.log('order', order)
+      domUpdates.displayAllRoomServiceOrders(order);
     })
     return orderedItems;
   }

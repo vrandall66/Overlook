@@ -4,19 +4,13 @@ class RoomServices {
   constructor(data, date) {
     this.data = data;
     this.date = date;
-    this.displayToDom();
-  }
-
-  sortRoomServices() {
-    let sorted = Object.keys(this.data).sort((a, b) => {
-      return a.this.data.date - b.this.data.date;
-    })
-    return sorted;
+    this.displayToDom(date);
+    this.allDailyOrderedItems(date);
   }
 
   findAllRoomService(date) {
-    let found = Object.keys(this.data).filter((day) => {
-      return this.data[day].date === date;
+    let found = this.data.roomServices.filter((service) => {
+      return service.date.includes(date);
     })
     return found;
   }
@@ -24,14 +18,22 @@ class RoomServices {
   totalRevenueToday(date) {
     let roomsServiced = this.findAllRoomService(date);
     let totalRevenue = roomsServiced.reduce((amount, room) => {
-      amount += this.data[room].totalCost;
+      amount += room.totalCost;
       return amount;
     }, 0)
     return totalRevenue;
   }
 
+  allDailyOrderedItems(date) {
+    let allOrders = this.findAllRoomService(date);
+    allOrders.map(order => {
+      domUpdates.displayAllRoomServiceOrders(order);
+    })
+    return allOrders;
+  }
+
   displayToDom() {
-    domUpdates.displayRoomServiceCharges(this.totalRevenueToday());
+    domUpdates.displayRoomServiceCharges(this.totalRevenueToday(this.date));
   }
 }
 

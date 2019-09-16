@@ -62,8 +62,21 @@
         </section>
         <section id="customers-tab">
           <h2 id="current-customer">Current Customer</h2>
-          <input type="search" />
-          <input type="button" />
+          <form id="find-customers">
+            <input
+              type="search"
+              id="customer-search-input"
+              placeholder="Guest Name"
+            />
+            <input type="button" id="customer-search-btn" value="Search" />
+            <input type="button" id="customer-add-btn" value="Add New Guest" />
+            <h3>SELECT CUSTOMER</h3>
+            <select id="name-option" name="users"> </select>
+            <br />
+            <button id="select-customer-button" type="button">
+              SELECT CUSTOMER
+            </button>
+          </form>
           <div class="guest-stay-information container">
             <h2>Duration of stay</h2>
             <p>Room #</p>
@@ -73,13 +86,26 @@
         </section>
         <section id="orders-tab">
           <h2>Room service orders</h2>
+          <div id="all-previous-room-service-orders">
+
+          </div>
+          <div id="daily-room-service-orders">
+
+          </div>
+          <div id="total-spent-on-service">
+            <h4>Total Spent Total:</h4>
+          </div>
+          <div id="total-spent-today-on-service">
+            <h4>Total Spent Today:</h4>
+          </div>
         </section>
         <section id="bookings-tab">
           <h2>Display the bookings</h2>
+          <div id="all-previous-bookings">
+
+          </div>
         </section>
       </section>
     </main>
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
 </html>

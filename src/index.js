@@ -103,6 +103,7 @@ function searchForCustomer() {
     .val()
     .toUpperCase();
   findUser(nameInput);
+  nameInput.val("");
 }
 
 function findUser(nameInput) {

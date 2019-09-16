@@ -5,6 +5,7 @@ class RoomServices {
     this.data = data;
     this.date = date;
     this.displayToDom(date);
+    this.allDailyOrderedItems(date);
   }
 
   sortRoomServices() {
@@ -16,7 +17,7 @@ class RoomServices {
 
   findAllRoomService(date) {
     let found = this.data.roomServices.filter((service) => {
-      return service.date === date;
+      return service.date.includes(date);
     })
     return found;
   }
@@ -28,6 +29,14 @@ class RoomServices {
       return amount;
     }, 0)
     return totalRevenue;
+  }
+
+  allDailyOrderedItems(date) {
+    let allOrders = this.findAllRoomService(date);
+    let orderedItems = allOrders.map(order => {
+      console.log('order', order)
+    })
+    return orderedItems;
   }
 
   displayToDom() {

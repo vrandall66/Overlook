@@ -63,14 +63,19 @@
         <section id="customers-tab">
           <h2 id="current-customer">Current Customer</h2>
           <form id="find-customers">
-          <input type="search" id="customer-search-input" placeholder="Guest Name"/>
-          <input type="button" id="customer-search-btn" value="Search" />
-          <input type="button" id="customer-add-btn" value="Add New Guest" />
-          <h3>SELECT CUSTOMER</h3>
-          <select id="name-option" name="users">
-          </select>
-          <br>
-          <button id="select-customer-button" type="button">SELECT CUSTOMER</button>
+            <input
+              type="search"
+              id="customer-search-input"
+              placeholder="Guest Name"
+            />
+            <input type="button" id="customer-search-btn" value="Search" />
+            <input type="button" id="customer-add-btn" value="Add New Guest" />
+            <h3>SELECT CUSTOMER</h3>
+            <select id="name-option" name="users"> </select>
+            <br />
+            <button id="select-customer-button" type="button">
+              SELECT CUSTOMER
+            </button>
           </form>
           <div class="guest-stay-information container">
             <h2>Duration of stay</h2>
@@ -81,9 +86,15 @@
         </section>
         <section id="orders-tab">
           <h2>Room service orders</h2>
+          <div id="all-previous-room-service-orders">
+            
+          </div>
         </section>
         <section id="bookings-tab">
           <h2>Display the bookings</h2>
+          <div id="all-previous-bookings">
+
+          </div>
         </section>
       </section>
     </main>

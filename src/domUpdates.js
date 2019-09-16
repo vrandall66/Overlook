@@ -25,10 +25,18 @@ const domUpdates = {
     $("#room-service-charges-day").text(revenue);
   },
 
-  displayFilteredCustomers(name) {
+  displayFilteredCustomers(customer) {
     $(
-      `<option value="${name.id}" id="${name.id}-option">${name.id} ${name.name}</option>`
+      `<option value="${customer.id}" id="${customer.id}-option">${customer.id} ${customer.name}</option>`
     ).appendTo($("#name-option"));
+  },
+
+  displayPreviousBookings(customer) {
+    $(`<span data-id="${customer.id}">${customer.date}: ${customer.roomNumber}</span>`).appendTo($('#all-previous-bookings'))
+  },
+
+  displayPreviousRoomServices(customer) {
+    $(`<span data-id="${customer.id}">${customer.date}: ${customer.food}, ${customer.totalCost}</span>`).appendTo($('#all-previous-room-service-orders'))
   }
 };
 

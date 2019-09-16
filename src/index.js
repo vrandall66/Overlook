@@ -2,15 +2,10 @@ import $ from "jquery";
 import domUpdates from "./domUpdates";
 import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
-import Booking from "./Booking.js";
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import "./images/turing-logo.png";
-
-console.log("This is the JavaScript entry file - your code begins here.");
 
 $(".tabs-nav a").on("click", function(event) {
   event.preventDefault();
@@ -73,6 +68,7 @@ function instantiateCustomers() {
 
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
+$('#select-customer-button').on('click', filterForCustomerData);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -107,7 +103,6 @@ function searchForCustomer() {
     return;
   } else {
     findUser(nameInput);
-    nameInput.val("");
   }
 }
 
@@ -129,4 +124,33 @@ function createGuest(e) {
   }
   let newGuest = new Guest(newGuestObject);
   allCustomers.push(newGuest)
+}
+
+function filterForCustomerData() {
+  let selected = $('#name-option').val();
+  let bookings = allData.bookings.bookings;
+  let roomService = allData.roomServices.roomServices;
+  let userBookings = findCustomerData(selected, bookings);
+  let userRoomServices = findCustomerData(selected, roomService);
+  appendUserBookingsData(userBookings);
+  appendUserRoomServiceData(userRoomServices);
+}
+
+function findCustomerData(selected, data) {
+  let filtered = data.filter(log => {
+    return log.userID == selected;
+  });
+  return filtered
+}
+
+function appendUserBookingsData(filteredData) {
+  filteredData.forEach(log => {
+    domUpdates.displayPreviousBookings(log);
+  })
+}
+
+function appendUserRoomServiceData(filteredData) {
+  filteredData.forEach(log => {
+    domUpdates.displayPreviousRoomServices(log);
+  })
 }

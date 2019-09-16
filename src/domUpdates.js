@@ -26,7 +26,9 @@ const domUpdates = {
   },
 
   displayFilteredCustomers(name) {
-    $(`<p>${name.name}, ${name.id}</p>`).appendTo($('#current-customer'))
+    // $(
+    //   `<option value="${name.id}" id="${name.id}-option">${name.id} ${name.name}</option>`
+    // ).appendTo($("#name-option"));
   }
 };
 

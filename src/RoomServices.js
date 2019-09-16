@@ -2,9 +2,11 @@ import domUpdates from "./domUpdates";
 
 class RoomServices {
   constructor(data, date) {
+    console.log(date)
     this.data = data;
     this.date = date;
-    this.displayToDom();
+    this.displayToDom(date);
+    console.log('this', this.date);
   }
 
   sortRoomServices() {
@@ -15,8 +17,8 @@ class RoomServices {
   }
 
   findAllRoomService(date) {
-    let found = Object.keys(this.data).filter((day) => {
-      return this.data[day].date === date;
+    let found = this.data.roomServices.filter((service) => {
+      return service.date === date;
     })
     return found;
   }
@@ -24,14 +26,14 @@ class RoomServices {
   totalRevenueToday(date) {
     let roomsServiced = this.findAllRoomService(date);
     let totalRevenue = roomsServiced.reduce((amount, room) => {
-      amount += this.data[room].totalCost;
+      amount += room.totalCost;
       return amount;
     }, 0)
     return totalRevenue;
   }
 
   displayToDom() {
-    domUpdates.displayRoomServiceCharges(this.totalRevenueToday());
+    domUpdates.displayRoomServiceCharges(this.totalRevenueToday(this.date));
   }
 }
 

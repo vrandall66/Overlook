@@ -2,11 +2,9 @@ import domUpdates from "./domUpdates";
 
 class RoomServices {
   constructor(data, date) {
-    console.log(date)
     this.data = data;
     this.date = date;
     this.displayToDom(date);
-    console.log('this', this.date);
   }
 
   sortRoomServices() {

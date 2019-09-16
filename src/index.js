@@ -103,7 +103,7 @@ function searchForCustomer() {
   let nameInput = $("#customer-search-input")
     .val()
     .toUpperCase();
-  if (nameInput.val() === "") {
+  if (nameInput === "") {
     return;
   } else {
     findUser(nameInput);

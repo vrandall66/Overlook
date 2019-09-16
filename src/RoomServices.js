@@ -8,13 +8,6 @@ class RoomServices {
     this.allDailyOrderedItems(date);
   }
 
-  sortRoomServices() {
-    let sorted = Object.keys(this.data).sort((a, b) => {
-      return a.this.data.date - b.this.data.date;
-    })
-    return sorted;
-  }
-
   findAllRoomService(date) {
     let found = this.data.roomServices.filter((service) => {
       return service.date.includes(date);
@@ -33,10 +26,10 @@ class RoomServices {
 
   allDailyOrderedItems(date) {
     let allOrders = this.findAllRoomService(date);
-    let orderedItems = allOrders.map(order => {
+    allOrders.map(order => {
       domUpdates.displayAllRoomServiceOrders(order);
     })
-    return orderedItems;
+    return allOrders;
   }
 
   displayToDom() {

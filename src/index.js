@@ -116,7 +116,7 @@ function findUserFromInput(nameInput) {
 function findUserFromSelect(selected) {
   return allCustomers.find(person => {
     return person.id === parseInt(selected);
-  })
+  });
 }
 
 function createGuest(e) {
@@ -134,7 +134,7 @@ function createGuest(e) {
 
 function filterForCustomerData() {
   let selected = $("#name-option").val();
-  let user = findUserFromSelect(selected)
+  let user = findUserFromSelect(selected);
   let bookings = allData.bookings.bookings;
   let roomService = allData.roomServices.roomServices;
   let userBookings = findCustomerData(selected, bookings);
@@ -166,27 +166,28 @@ function appendUserRoomServiceData(filteredData) {
 }
 
 function totalMoneySpentOnRoomService(user) {
-  let allOrders = allData.roomServices.roomServices.filter((order) => {
+  let allOrders = allData.roomServices.roomServices.filter(order => {
     return order.userID === user.id;
   });
   let totalMoney = allOrders.reduce((money, currentOrder) => {
     money += currentOrder.totalCost;
     return money;
-  }, 0)
-  domUpdates.displayMoneySpentOnRoomService(totalMoney);
-  return totalMoney;
+  }, 0);
+  domUpdates.displayMoneySpentOnRoomService(totalMoney.toFixed(2));
+  return totalMoney.toFixed(2);
 }
 
 function moneySpentOnRoomService(date, user) {
-  let ordersToday = allData.roomServices.roomServices.filter((order) => {
+  let ordersToday = allData.roomServices.roomServices.filter(order => {
     return order.date.includes(date);
   });
   let userOrdersToday = ordersToday.filter(eachOrder => {
     return eachOrder.userID === user.id;
-  })
+  });
   let userTotalSpentFood = userOrdersToday.reduce((money, currentOrder) => {
     money += currentOrder.totalCost;
-    return money;
+    return money.toFixed(2);
   }, 0);
+  domUpdates.displayMoneySpentOnGivenDay(userTotalSpentFood);
   return userTotalSpentFood;
 }

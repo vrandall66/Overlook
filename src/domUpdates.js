@@ -23,6 +23,10 @@ const domUpdates = {
 
   displayRoomServiceCharges(revenue) {
     $("#room-service-charges-day").text(revenue);
+  },
+
+  displayFilteredCustomers(name) {
+    $(`<p>${name.name}, ${name.id}</p>`).appendTo($('#current-customer'))
   }
 };
 

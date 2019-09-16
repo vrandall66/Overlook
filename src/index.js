@@ -68,8 +68,10 @@ function instantiateCustomers() {
       allCustomers.push(newGuest);
     });
     return allCustomers;
-  }, 1000);
+  }, 2000);
 }
+
+$("#customer-search-btn").on("click", searchForCustomer);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -94,4 +96,20 @@ function getDate() {
   let todayDom = `${mm}/${dd}/${yyyy}`;
   domUpdates.displayDate(todayDom);
   return today;
+}
+
+function searchForCustomer() {
+  let nameInput = $("#customer-search-input")
+    .val()
+    .toUpperCase();
+  findUser(nameInput);
+}
+
+function findUser(nameInput) {
+  let filtered = allCustomers.filter(person => {
+    let name = Object.values(person)[1].toUpperCase();
+    return name.includes(nameInput);
+  });
+  filtered.forEach(guest => domUpdates.displayFilteredCustomers(guest));
+  // let found = filtered.forEach(person => )
 }

@@ -72,6 +72,7 @@ function instantiateCustomers() {
 }
 
 $("#customer-search-btn").on("click", searchForCustomer);
+$("#customer-add-btn").on("click", createGuest);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -102,8 +103,12 @@ function searchForCustomer() {
   let nameInput = $("#customer-search-input")
     .val()
     .toUpperCase();
-  findUser(nameInput);
-  nameInput.val("");
+  if (nameInput.val() === "") {
+    return;
+  } else {
+    findUser(nameInput);
+    nameInput.val("");
+  }
 }
 
 function findUser(nameInput) {
@@ -112,5 +117,16 @@ function findUser(nameInput) {
     return name.includes(nameInput);
   });
   filtered.forEach(guest => domUpdates.displayFilteredCustomers(guest));
-  // let found = filtered.forEach(person => )
+}
+
+function createGuest(e) {
+  e.preventDefault(e);
+  let nameInput = $("#customer-search-input").val();
+  let newGuestId = allCustomers.length + 1;
+  let newGuestObject = {
+    id: newGuestId,
+    name: nameInput
+  }
+  let newGuest = new Guest(newGuestObject);
+  allCustomers.push(newGuest)
 }

@@ -21,7 +21,6 @@ class RoomServices {
     let found = window.orders.filter(service => {
       return service.date.includes(date);
     });
-    console.log(found);
     return found;
   }
 

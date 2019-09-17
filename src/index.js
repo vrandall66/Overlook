@@ -67,6 +67,7 @@ function onPageLoad() {
     RoomServices.displayToDom(getDate());
     RoomServices.allDailyOrderedItems(getDate());
     Booking.displayToDom(getDate());
+    Booking.evaluateBookingFrequency();
   }, 1000);
 }
 
@@ -192,7 +193,7 @@ function updateOrdersToDate() {
     .val()
     .split("-")
     .join("/");
-  RoomServices.findAllByDate(date);
+  RoomServices.allDailyOrderedItems(date);
 }
 
 function updateBookingsToDate() {
@@ -200,5 +201,6 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  Booking.showBookedRooms(date);
+  // Booking.showBookedRooms(date);
+  domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date))
 }

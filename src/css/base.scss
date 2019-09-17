@@ -2,7 +2,7 @@
 @import "variables";
 
 * {
-  // border: 1px solid red;
+  border: 1px solid red;
   box-sizing: border-box;
   font-family: "Manjari", sans-serif;
   margin: 0;
@@ -10,6 +10,7 @@
 
 body {
   background-color: $background;
+  height: 93vh;
 }
 
 h1 {
@@ -21,7 +22,6 @@ h1 {
 
 main {
   color: $main-font;
-  height: 100vh;
   width: 100%;
 }
 
@@ -76,7 +76,7 @@ a:hover {
 #bookings-tab {
   align-content: center;
   display: flex;
-  height: 100vh;
+  height: 88vh;
   justify-content: center;
   padding: 1% 1%;
 }
@@ -86,14 +86,14 @@ a:hover {
 .right-main-container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  justify-content: space-between;
+  height: 80vh;
+  justify-content: space-around;
   padding: 1% 1%;
   width: 33%;
 }
 
 .right-main-container {
-  width: 20%;
+  width: 25%;
 }
 
 .container {
@@ -103,7 +103,13 @@ a:hover {
   padding: 2% 2%;
 }
 
-.today-date {
+.bookings-container {
+  width: 33%;
+}
+
+.today-date,
+.daily-revenue,
+.rooms-available {
   height: 6em;
 }
 
@@ -121,4 +127,8 @@ a:hover {
 .customer-search,
 .customer-search-button {
   height: 2.5em;
+}
+
+.hidden {
+  display: none;
 }

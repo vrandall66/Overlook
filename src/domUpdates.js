@@ -32,12 +32,19 @@ const domUpdates = {
   },
 
   displayPreviousBookings(customer) {
+    let previousBookingDiv = $('#all-previous-bookings');
+    previousBookingDiv.addClass("container, bookings-container");
+    previousBookingDiv.removeClass("hidden");
+    $(".hidden").removeClass("hidden");
     $(
       `<span data-id="${customer.id}">Booking Date: ${customer.date} Room Number: ${customer.roomNumber}</span></ br>`
-    ).appendTo($("#all-previous-bookings"));
+    ).appendTo(previousBookingDiv);
   },
 
   displayPreviousRoomServices(customer) {
+    $('#daily-room-service-orders').removeClass('container')
+    $("#all-previous-room-service-orders").addClass("container");
+    $("#all-previous-room-service-orders").removeClass("hidden")
     $(
       `<span data-id="${customer.id}">Order Date: ${customer.date}: Item Ordered: ${customer.food}: $${customer.totalCost}</span></ br>`
     ).appendTo($("#all-previous-room-service-orders"));
@@ -50,15 +57,16 @@ const domUpdates = {
   },
 
   displayMoneySpentOnRoomService(amount) {
-    $(`<p class="orders-tab-p">$${amount}</p>`).appendTo(
-      $("#total-spent-on-service")
-    );
+    $(`<div id="total-spent-on-service" class="container">
+      <h4>Total Spent:</h4>
+  <p class="orders-tab-p">$${amount}</p></div>`).appendTo($("orders-tab"));
   },
 
   displayMoneySpentOnGivenDay(money) {
-    $(`<p class="orders-tab-p">$${money}</p>`).appendTo(
-      $("#total-spent-today-on-service")
-    );
+    $(`<div id="total-spent-today-on-service" class="container">
+      <h4>Total Spent Today:</h4>
+      <p class="orders-tab-p">$${money}</p>
+      </div>`).appendTo($("orders-tab"));
   },
 
   changeName(user) {
@@ -68,6 +76,8 @@ const domUpdates = {
     $("#customer-dropdown-form").remove();
     $("#no-user").remove();
     $("#all-room-service-orders").remove();
+    $("#least-booking-dates").remove();
+    $("#most-booking-dates").remove();
   },
 
   noUserFound() {
@@ -77,21 +87,36 @@ const domUpdates = {
   },
 
   displayAvailableRoomsOnSpecifiedDate(room) {
+    $("#all-previous-bookings").addClass('container');
     $(
       `<span id="all-available-rooms-day" data-id="${room.number}">Room Number: ${room.number}: Room Type: ${room.roomType} Bed Size: ${room.bedSize}</span></ br>`
     ).appendTo($("#all-previous-bookings"));
   },
 
   displayMostPopularBookingDay(day) {
-    $(`<span class="popular-bookings">|${day}|</span></ br>`).appendTo(
-      $("#most-booking-dates")
-    );
+    $(
+      `<span class="popular-bookings" id="most-popular-bookings"> |  ${day}  | </span></ br>`
+    ).appendTo($("#most-booking-dates"));
   },
 
   displayLeastPopularBookingDay(day) {
-    $(`<span class="popular-bookings">|${day}|</span></ br>`).appendTo(
-      "#least-booking-dates"
-    );
+    $(
+      `<span class="popular-bookings" id="least-popular-bookings"> |  ${day}  |</span></ br>`
+    ).appendTo("#least-booking-dates");
+  },
+
+  displayErrorsForNoCustomerData(data, name) {
+    // if (data[0] == RoomService)
+    console.log("data[0]", data[0]);
+  },
+
+  displayValidCustomerButtons() {
+    $(`<div id="customer-upgrades-form">
+    <button id="create-new-booking" type="button">New Booking</button>
+    <button id="create-new-order" type="button">Order Room Service</button>
+    <button id="customer-upgrade-room" type="button">Upgrade Room</button>
+    <button id="calculate-total-bill" type="button">Calculate Total Bill</button>
+    </div>`).appendTo($("#find-customers"));
   }
 };
 

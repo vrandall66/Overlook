@@ -125,6 +125,7 @@ function createGuest(e) {
   window.customers.push(newGuest);
   window.currentCustomer = newGuest;
   domUpdates.changeName(newGuest);
+  domUpdates.displayErrorsForNoCustomerData(nameInput);
 }
 
 function filterForCustomerData() {
@@ -132,20 +133,25 @@ function filterForCustomerData() {
   let user = findUserFromSelect(selected);
   let bookings = window.bookings;
   let roomService = window.orders;
-  let userBookings = findCustomerData(selected, bookings);
-  let userRoomServices = findCustomerData(selected, roomService);
+  let userBookings = findCustomerData(selected, bookings, user);
+  let userRoomServices = findCustomerData(selected, roomService, user);
   window.currentCustomer = user;
   appendUserBookingsData(userBookings);
   appendUserRoomServiceData(userRoomServices);
   totalMoneySpentOnRoomService(user);
   moneySpentOnRoomService(getDate(), user);
   domUpdates.changeName(user);
+  domUpdates.displayValidCustomerButtons();
 }
 
-function findCustomerData(selected, data) {
+function findCustomerData(selected, data, user) {
+  console.log('selected top fn', selected)
   let filtered = data.filter(log => {
     return log.userID === parseInt(selected);
   });
+  if (filtered.length === 0) {
+    domUpdates.displayErrorsForNoCustomerData(data, user);
+  }
   return filtered;
 }
 
@@ -156,6 +162,7 @@ function appendUserBookingsData(filteredData) {
 }
 
 function appendUserRoomServiceData(filteredData) {
+  console.log(filteredData.length)
   filteredData.forEach(log => {
     domUpdates.displayPreviousRoomServices(log);
   });
@@ -201,6 +208,5 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  // Booking.showBookedRooms(date);
   domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date, allData.rooms))
 }

@@ -29,7 +29,7 @@ class Booking {
 
   static showBookedRooms(date) {
     let found = this.findBookedRooms(date);
-    console.log(found.map(room => room.roomNumber))
+    console.log(found.map(room => room.roomNumber));
     return found.map(room => room.roomNumber);
   }
 

@@ -3,7 +3,7 @@ import domUpdates from "./domUpdates";
 import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
 import RoomServices from "./RoomServices.js";
-import Booking from "./Booking.js"
+import Booking from "./Booking.js";
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
@@ -38,14 +38,15 @@ let roomServicesData = fetch(
 
 let allData = { customers: {}, rooms: {}, bookings: {}, roomServices: {} };
 
-Promise.all([usersData, roomsData, bookingsData, roomServicesData])
-  .then(values => {
+Promise.all([usersData, roomsData, bookingsData, roomServicesData]).then(
+  values => {
     Guest.createFromData(values[0]);
     allData.rooms = values[1];
     Booking.createFromData(values[2]);
     RoomServices.createFromData(values[3]);
     return allData;
-  })
+  }
+);
 
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
@@ -199,5 +200,5 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  Booking.showBookedRooms(date)
+  Booking.showBookedRooms(date);
 }

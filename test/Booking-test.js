@@ -19,8 +19,7 @@ chai.spy.on(
 let booking;
 
 beforeEach(() => {
-  let date = "2019/07/28";
-  booking = new Booking(data.rooms, data.bookings, date);
+  booking = new Booking(data.bookings.bookings);
 });
 
 describe("Booking", () => {
@@ -31,7 +30,7 @@ describe("Booking", () => {
 
   it("should be able to find all available rooms for a given day", () => {
     expect(booking.findBookedRooms).to.be.a("function");
-    expect(booking.findBookedRooms()).to.eql([
+    expect(booking.findBookedRooms("2019/07/28")).to.eql([
       { date: "2019/07/28", roomNumber: 1, userID: 91 },
       { date: "2019/07/28", roomNumber: 2, userID: 87 },
       { date: "2019/07/28", roomNumber: 8, userID: 5 },

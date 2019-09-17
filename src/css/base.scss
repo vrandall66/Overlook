@@ -9,11 +9,13 @@
 }
 
 body {
-  background-color: $other-background;
+  background-color: $background;
 }
 
 h1 {
   color: $main-font;
+  font-size: 250%;
+  margin-left: 2%;
   margin-top: 1.5%;
 }
 
@@ -47,7 +49,7 @@ ul {
 }
 
 a {
-  background: $tabs;
+  background: $other-background;
   border: 1px solid #cecfd5;
   color: $main-font;
   display: block;
@@ -58,34 +60,65 @@ a {
 }
 
 a:hover {
-  // color: #ff7b29;
+  color: $a;
 }
 
 .current a {
-  background: $other-background;
+  background: $tabs;
   border-bottom-color: transparent;
-  // color: #2db34a;
+  // color: ;
   cursor: default;
 }
 
-#main-tab {
+#main-tab,
+#customers-tab,
+#orders-tab,
+#bookings-tab {
   align-content: center;
   display: flex;
-  height: 85vh;
+  height: 100vh;
   justify-content: center;
+  padding: 1% 1%;
 }
 
 .left-main-container,
 .center-main-container,
 .right-main-container {
-  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: space-between;
+  padding: 1% 1%;
   width: 33%;
 }
 
+.right-main-container {
+  width: 20%;
+}
+
 .container {
+  background-color: $background;
+  border: 2px solid $other-background;
   height: 16em;
+  padding: 2% 2%;
 }
 
 .today-date {
-  height: 8em;
+  height: 6em;
+}
+
+#today {
+  font-size: 1.5em;
+}
+
+#daily-bookings {
+  overflow-wrap: break-word;
+}
+.all-tabs {
+  background-color: $tabs;
+}
+
+.customer-search,
+.customer-search-button {
+  height: 2.5em;
 }

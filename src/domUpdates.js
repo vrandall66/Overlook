@@ -76,8 +76,10 @@ const domUpdates = {
     );
   },
 
-  displayBookingsOnSpecifiedDate(date) {
-    // .appendTo($("#all-previous-bookings"))
+  displayAvailableRoomsOnSpecifiedDate(room) {
+    $(
+      `<span id="all-available-rooms-day" data-id="${room.number}">Room Number: ${room.number}: Room Type: ${room.roomType} Bed Size: ${room.bedSize}</span></ br>`
+    ).appendTo($("#all-previous-bookings"));
   },
 
   displayMostPopularBookingDay(day) {

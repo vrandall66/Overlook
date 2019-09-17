@@ -202,5 +202,5 @@ function updateBookingsToDate() {
     .split("-")
     .join("/");
   // Booking.showBookedRooms(date);
-  domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date))
+  domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date, allData.rooms))
 }

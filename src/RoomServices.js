@@ -9,9 +9,9 @@ class RoomServices {
   }
 
   findAllRoomService(date) {
-    let found = this.data.roomServices.filter((service) => {
+    let found = this.data.roomServices.filter(service => {
       return service.date.includes(date);
-    })
+    });
     return found;
   }
 
@@ -20,7 +20,7 @@ class RoomServices {
     let totalRevenue = roomsServiced.reduce((amount, room) => {
       amount += room.totalCost;
       return amount;
-    }, 0)
+    }, 0);
     return totalRevenue;
   }
 
@@ -28,7 +28,7 @@ class RoomServices {
     let allOrders = this.findAllRoomService(date);
     allOrders.map(order => {
       domUpdates.displayAllRoomServiceOrders(order);
-    })
+    });
     return allOrders;
   }
 

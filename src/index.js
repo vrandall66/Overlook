@@ -3,6 +3,7 @@ import domUpdates from "./domUpdates";
 import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
 import RoomServices from "./RoomServices.js";
+import Booking from "./Booking.js"
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
@@ -17,7 +18,10 @@ $(".tabs-nav a").on("click", function(event) {
   $($(this).attr("href")).show();
 });
 
-let hotel;
+window.currentGuest;
+window.bookings = [];
+window.orders = [];
+window.customers = [];
 
 let usersData = fetch(
   "https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users"
@@ -33,38 +37,15 @@ let roomServicesData = fetch(
 ).then(response => response.json());
 
 let allData = { customers: {}, rooms: {}, bookings: {}, roomServices: {} };
-let allCustomers = [];
 
 Promise.all([usersData, roomsData, bookingsData, roomServicesData])
   .then(values => {
-    allData.customers = values[0];
+    Guest.createFromData(values[0]);
     allData.rooms = values[1];
-    allData.bookings = values[2];
-    allData.roomServices = values[3];
+    Booking.createFromData(values[2]);
+    RoomServices.createFromData(values[3]);
     return allData;
   })
-  .then(
-    allData =>
-      new Hotel(
-        allData.customers,
-        allData.rooms,
-        allData.bookings,
-        allData.roomServices,
-        getDate()
-      )
-  )
-  .then(instantiateCustomers());
-
-function instantiateCustomers() {
-  setTimeout(() => {
-    let guests = allData.customers.users;
-    guests.forEach(guest => {
-      let newGuest = new Guest(guest);
-      allCustomers.push(newGuest);
-    });
-    return allCustomers;
-  }, 2000);
-}
 
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
@@ -79,8 +60,13 @@ function displayMain() {
 }
 
 function onPageLoad() {
-  displayMain();
-  getDate();
+  setTimeout(() => {
+    displayMain();
+    getDate();
+    RoomServices.displayToDom(getDate());
+    RoomServices.allDailyOrderedItems(getDate());
+    Booking.displayToDom(getDate());
+  }, 1000);
 }
 
 onPageLoad();
@@ -109,7 +95,7 @@ function searchForCustomer() {
 }
 
 function findUserFromInput(nameInput) {
-  let filtered = allCustomers.filter(person => {
+  let filtered = window.customers.filter(person => {
     let name = Object.values(person)[1].toUpperCase();
     return name.includes(nameInput);
   });
@@ -120,7 +106,7 @@ function findUserFromInput(nameInput) {
 }
 
 function findUserFromSelect(selected) {
-  return allCustomers.find(person => {
+  return window.customers.find(person => {
     return person.id === parseInt(selected);
   });
 }
@@ -128,25 +114,25 @@ function findUserFromSelect(selected) {
 function createGuest(e) {
   e.preventDefault(e);
   let nameInput = $("#customer-search-input").val();
-  let newGuestId = allCustomers.length + 1;
+  let newGuestId = window.customers.length + 1;
   let newGuestObject = {
     id: newGuestId,
     name: nameInput
   };
   let newGuest = new Guest(newGuestObject);
-  allCustomers.push(newGuest);
-  Hotel.currentCustomer = newGuest;
+  window.customers.push(newGuest);
+  window.currentCustomer = newGuest;
   domUpdates.changeName(newGuest);
 }
 
 function filterForCustomerData() {
   let selected = $("#name-option").val();
   let user = findUserFromSelect(selected);
-  let bookings = allData.bookings.bookings;
-  let roomService = allData.roomServices.roomServices;
+  let bookings = window.bookings;
+  let roomService = window.orders;
   let userBookings = findCustomerData(selected, bookings);
   let userRoomServices = findCustomerData(selected, roomService);
-  Hotel.currentCustomer = user;
+  window.currentCustomer = user;
   appendUserBookingsData(userBookings);
   appendUserRoomServiceData(userRoomServices);
   totalMoneySpentOnRoomService(user);
@@ -174,7 +160,7 @@ function appendUserRoomServiceData(filteredData) {
 }
 
 function totalMoneySpentOnRoomService(user) {
-  let allOrders = allData.roomServices.roomServices.filter(order => {
+  let allOrders = window.orders.filter(order => {
     return order.userID === user.id;
   });
   let totalMoney = allOrders.reduce((money, currentOrder) => {
@@ -186,7 +172,7 @@ function totalMoneySpentOnRoomService(user) {
 }
 
 function moneySpentOnRoomService(date, user) {
-  let ordersToday = allData.roomServices.roomServices.filter(order => {
+  let ordersToday = window.orders.filter(order => {
     return order.date.includes(date);
   });
   let userOrdersToday = ordersToday.filter(eachOrder => {
@@ -205,7 +191,7 @@ function updateOrdersToDate() {
     .val()
     .split("-")
     .join("/");
-  console.log(hotel.roomServices.findAllRoomService(date));
+  RoomServices.findAllByDate(date);
 }
 
 function updateBookingsToDate() {
@@ -213,5 +199,5 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  console.log(date);
+  Booking.showBookedRooms(date)
 }

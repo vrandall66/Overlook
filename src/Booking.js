@@ -1,16 +1,25 @@
 import domUpdates from "./domUpdates";
+import allData from "../data/allData";
 
 class Booking {
-  constructor(roomsData, bookingsData, date) {
-    this.rooms = roomsData.rooms;
-    this.bookings = bookingsData.bookings;
-    this.date = date;
-    this.displayToDom();
+  constructor(data) {
+    this.userID = data.userID;
+    this.date = data.date;
+    this.roomNumber = data.roomNumber;
   }
 
-  findBookedRooms() {
-    let booked = this.bookings.filter(booking => {
-      return booking.date === this.date;
+  static createFromData(bookings) {
+    let bookingsData = bookings.bookings;
+    bookingsData.forEach(booking => {
+      let newBooking = new Booking(booking);
+      window.bookings.push(newBooking);
+    });
+    return bookingsData;
+  }
+
+  static findBookedRooms(date) {
+    let booked = window.bookings.filter(booking => {
+      return booking.date === date;
     });
     let sorted = booked.sort((a, b) => {
       return a.roomNumber - b.roomNumber;
@@ -18,21 +27,22 @@ class Booking {
     return sorted;
   }
 
-  showBookedRooms() {
-    let found = this.findBookedRooms();
+  static showBookedRooms(date) {
+    let found = this.findBookedRooms(date);
+    console.log(found.map(room => room.roomNumber))
     return found.map(room => room.roomNumber);
   }
 
-  totalRoomsAvailableToday() {
-    let bookedRooms = this.findBookedRooms(this.date);
-    let number = this.rooms.length - bookedRooms.length;
+  static totalRoomsAvailableToday(date) {
+    let bookedRooms = this.findBookedRooms(date);
+    let number = allData.rooms.rooms.length - bookedRooms.length;
     return number;
   }
 
-  totalBookingRevenueToday() {
-    let roomsBooked = this.findBookedRooms(this.date);
+  static totalBookingRevenueToday(date) {
+    let roomsBooked = this.findBookedRooms(date);
     let revenue = roomsBooked.reduce((num, bookedRoom) => {
-      this.rooms.forEach(room => {
+      allData.rooms.rooms.forEach(room => {
         if (room.number === bookedRoom.roomNumber) {
           return (num += room.costPerNight);
         }
@@ -42,19 +52,19 @@ class Booking {
     return revenue;
   }
 
-  percentageOfRoomsOccupiedToday() {
-    let roomsBooked = this.findBookedRooms(this.date);
-    let percentage = (roomsBooked.length / this.rooms.length) * 100;
+  static percentageOfRoomsOccupiedToday(date) {
+    let roomsBooked = this.findBookedRooms(date);
+    let percentage = (roomsBooked.length / allData.rooms.rooms.length) * 100;
     return percentage;
   }
 
-  displayToDom() {
+  static displayToDom(date) {
     domUpdates.displayPercentageOfBookings(
-      this.percentageOfRoomsOccupiedToday()
+      this.percentageOfRoomsOccupiedToday(date)
     );
-    domUpdates.displayBookingRevenueToday(this.totalBookingRevenueToday());
-    domUpdates.displayRoomsAvailableToday(this.totalRoomsAvailableToday());
-    domUpdates.displayDailyBookedRooms(this.showBookedRooms());
+    domUpdates.displayBookingRevenueToday(this.totalBookingRevenueToday(date));
+    domUpdates.displayRoomsAvailableToday(this.totalRoomsAvailableToday(date));
+    domUpdates.displayDailyBookedRooms(this.showBookedRooms(date));
   }
 }
 

@@ -1,22 +1,32 @@
 import domUpdates from "./domUpdates";
 
 class RoomServices {
-  constructor(data, date) {
-    this.data = data;
-    this.date = date;
-    this.displayToDom(date);
-    this.allDailyOrderedItems(date);
+  constructor(data) {
+    this.userID = data.userID;
+    this.date = data.date;
+    this.food = data.food;
+    this.totalCost = data.totalCost;
   }
 
-  findAllRoomService(date) {
-    let found = this.data.roomServices.filter(service => {
+  static createFromData(roomServices) {
+    let orders = roomServices.roomServices;
+    orders.forEach(log => {
+      let newOrder = new RoomServices(log);
+      window.orders.push(newOrder);
+    });
+    return orders;
+  }
+
+  static findAllByDate(date) {
+    let found = window.orders.filter(service => {
       return service.date.includes(date);
     });
+    console.log(found)
     return found;
   }
 
-  totalRevenueToday(date) {
-    let roomsServiced = this.findAllRoomService(date);
+  static totalRevenueToday(date) {
+    let roomsServiced = this.findAllByDate(date);
     let totalRevenue = roomsServiced.reduce((amount, room) => {
       amount += room.totalCost;
       return amount;
@@ -24,16 +34,16 @@ class RoomServices {
     return totalRevenue;
   }
 
-  allDailyOrderedItems(date) {
-    let allOrders = this.findAllRoomService(date);
+  static allDailyOrderedItems(date) {
+    let allOrders = this.findAllByDate(date);
     allOrders.map(order => {
       domUpdates.displayAllRoomServiceOrders(order);
     });
     return allOrders;
   }
 
-  displayToDom() {
-    domUpdates.displayRoomServiceCharges(this.totalRevenueToday(this.date));
+  static displayToDom(date) {
+    domUpdates.displayRoomServiceCharges(this.totalRevenueToday(date));
   }
 }
 

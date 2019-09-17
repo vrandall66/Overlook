@@ -45,16 +45,33 @@ const domUpdates = {
 
   displayAllRoomServiceOrders(order) {
     $(
-      `<span data-id="${order.userId}">Order Date: ${order.date}: Guest ID: ${order.userID} Item Ordered: ${order.food}: $${order.totalCost}</span></ br>`
+      `<span id="all-room-service-orders" data-id="${order.userId}">Order Date: ${order.date}: Guest ID: ${order.userID} Item Ordered: ${order.food}: $${order.totalCost}</span></ br>`
     ).appendTo($("#daily-room-service-orders"));
   },
 
   displayMoneySpentOnRoomService(amount) {
-    $(`<p class="orders-tab-p">$${amount}</p>`).appendTo($('#total-spent-on-service'));
+    $(`<p class="orders-tab-p">$${amount}</p>`).appendTo(
+      $("#total-spent-on-service")
+    );
   },
 
   displayMoneySpentOnGivenDay(money) {
-    $(`<p class="orders-tab-p">$${money}</p>`).appendTo($('#total-spent-today-on-service'))
+    $(`<p class="orders-tab-p">$${money}</p>`).appendTo(
+      $("#total-spent-today-on-service")
+    );
+  },
+
+  changeName(user) {
+    $("#current-customer").text(user.name);
+    $("#room-service-orders-header").text(`Orders for ${user.name}`);
+    $("#bookings-header").text(`Bookings for ${user.name}`);
+    $("#customer-dropdown-form").remove();
+    $('#no-user').remove();
+    $('#all-room-service-orders').remove();
+  },
+
+  noUserFound() {
+    $(`<p id="no-user">There is not a user under that name</p>`).appendTo($('#top-of-find-user-form'))
   }
 };
 

@@ -25,7 +25,7 @@ class Booking {
 
   totalRoomsAvailableToday() {
     let bookedRooms = this.findBookedRooms(this.date);
-    let number = (this.rooms.length - bookedRooms.length);
+    let number = this.rooms.length - bookedRooms.length;
     return number;
   }
 
@@ -49,7 +49,9 @@ class Booking {
   }
 
   displayToDom() {
-    domUpdates.displayPercentageOfBookings(this.percentageOfRoomsOccupiedToday());
+    domUpdates.displayPercentageOfBookings(
+      this.percentageOfRoomsOccupiedToday()
+    );
     domUpdates.displayBookingRevenueToday(this.totalBookingRevenueToday());
     domUpdates.displayRoomsAvailableToday(this.totalRoomsAvailableToday());
     domUpdates.displayDailyBookedRooms(this.showBookedRooms());

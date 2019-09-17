@@ -68,6 +68,8 @@ function instantiateCustomers() {
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
 $("#select-customer-button").on("click", filterForCustomerData);
+$("#orders-calendar-btn").on("click", updateOrdersToDate);
+$('#bookings-calendar-btn').on("click", updateBookingsToDate);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -195,4 +197,14 @@ function moneySpentOnRoomService(date, user) {
   }, 0);
   domUpdates.displayMoneySpentOnGivenDay(userTotalSpentFood);
   return userTotalSpentFood;
+}
+
+function updateOrdersToDate() {
+  let date = $("#orders-calendar").val().split('-').join('/');
+  console.log(date)
+}
+
+function updateBookingsToDate() {
+  let date = $('#bookings-calendar').val().split('-').join('/');
+  console.log(date)
 }

@@ -27,10 +27,23 @@ class Booking {
     return sorted;
   }
 
-  static showBookedRooms(date) {
+  static showCurrentBookedRooms(date) {
     let found = this.findBookedRooms(date);
-    console.log(found.map(room => room.roomNumber));
     return found.map(room => room.roomNumber);
+  }
+
+  static showBookedRooms(date, roomsData) {
+    let alreadyBooked = this.findBookedRooms(date);
+    let bookedRoomNumbers = alreadyBooked.map(booking => {
+      return booking.roomNumber;
+    });
+    let availableRooms = roomsData.rooms.filter(room => {
+      return !bookedRoomNumbers.includes(room.number);
+    });
+    availableRooms.forEach(room => {
+      domUpdates.displayAvailableRoomsOnSpecifiedDate(room);
+    });
+    return availableRooms;
   }
 
   static totalRoomsAvailableToday(date) {
@@ -75,22 +88,24 @@ class Booking {
 
   static sortBookingFrequency(allBookingsFrequency) {
     let bookingDayNumbers = Object.values(allBookingsFrequency);
+    let bookingDayDates = Object.keys(allBookingsFrequency);
     let sortedByPopularity = bookingDayNumbers.sort((a, b) => {
       return b - a;
     });
-    let bookingDayDates = Object.keys(allBookingsFrequency);
-    let mostPopularDays = bookingDayDates.filter(day => {
-      return allBookingsFrequency[day] === sortedByPopularity[0];
-    });
-    let leastPopularDays = bookingDayDates.filter(day => {
-      return allBookingsFrequency[day] === sortedByPopularity[(sortedByPopularity.length - 1)];
-    });
-    mostPopularDays.forEach(day => {
-      domUpdates.displayMostPopularBookingDay(day);
-    })
-    leastPopularDays.forEach(day => {
-      domUpdates.displayLeastPopularBookingDay(day);
-    })
+    let mostPopularDays = bookingDayDates
+      .filter(day => {
+        return allBookingsFrequency[day] === sortedByPopularity[0];
+      })
+      .forEach(day => domUpdates.displayMostPopularBookingDay(day));
+    let leastPopularDays = bookingDayDates
+      .filter(day => {
+        return (
+          allBookingsFrequency[day] ===
+          sortedByPopularity[sortedByPopularity.length - 1]
+        );
+      })
+      .forEach(day => domUpdates.displayLeastPopularBookingDay(day));
+    return mostPopularDays, leastPopularDays;
   }
 
   static displayToDom(date) {
@@ -99,7 +114,7 @@ class Booking {
     );
     domUpdates.displayBookingRevenueToday(this.totalBookingRevenueToday(date));
     domUpdates.displayRoomsAvailableToday(this.totalRoomsAvailableToday(date));
-    domUpdates.displayDailyBookedRooms(this.showBookedRooms(date));
+    domUpdates.displayDailyBookedRooms(this.showCurrentBookedRooms(date));
   }
 }
 

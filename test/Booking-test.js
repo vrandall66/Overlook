@@ -51,8 +51,8 @@ describe("Booking", () => {
   });
 
   it("should show booked rooms", () => {
-    expect(booking.showBookedRooms).to.be.a("function");
-    expect(booking.showBookedRooms()).to.eql([
+    expect(booking.showCurrentBookedRooms).to.be.a("function");
+    expect(booking.showCurrentBookedRooms()).to.eql([
       1,
       2,
       8,

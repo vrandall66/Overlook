@@ -1,6 +1,5 @@
 import $ from "jquery";
 import domUpdates from "./domUpdates";
-import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
 import RoomServices from "./RoomServices.js";
 import Booking from "./Booking.js";
@@ -201,6 +200,6 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  // Booking.showBookedRooms(date);
+  Booking.showBookedRooms(date, allData.rooms);
   domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date))
 }

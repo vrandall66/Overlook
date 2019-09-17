@@ -27,10 +27,18 @@ class Booking {
     return sorted;
   }
 
-  static showBookedRooms(date) {
-    let found = this.findBookedRooms(date);
-    console.log(found.map(room => room.roomNumber));
-    return found.map(room => room.roomNumber);
+  static showBookedRooms(date, roomsData) {
+    let alreadyBooked = this.findBookedRooms(date);
+    let bookedRoomNumbers = alreadyBooked.map(booking => {
+      return booking.roomNumber;
+    });
+    let availableRooms = roomsData.rooms.filter(room => {
+      return !bookedRoomNumbers.includes(room.number)
+    })
+    availableRooms.forEach(room => {
+      domUpdates.displayAvailableRoomsOnSpecifiedDate(room);
+    })
+    return availableRooms;
   }
 
   static totalRoomsAvailableToday(date) {

@@ -58,6 +58,41 @@ class Booking {
     return percentage;
   }
 
+  static evaluateBookingFrequency() {
+    let totalBookingsOnEachDay = window.bookings.reduce(
+      (organizedBookings, reservation) => {
+        if (!organizedBookings[reservation.date]) {
+          organizedBookings[reservation.date] = 0;
+        }
+        organizedBookings[reservation.date]++;
+        return organizedBookings;
+      },
+      {}
+    );
+    this.sortBookingFrequency(totalBookingsOnEachDay);
+    return totalBookingsOnEachDay;
+  }
+
+  static sortBookingFrequency(allBookingsFrequency) {
+    let bookingDayNumbers = Object.values(allBookingsFrequency);
+    let sortedByPopularity = bookingDayNumbers.sort((a, b) => {
+      return b - a;
+    });
+    let bookingDayDates = Object.keys(allBookingsFrequency);
+    let mostPopularDays = bookingDayDates.filter(day => {
+      return allBookingsFrequency[day] === sortedByPopularity[0];
+    });
+    let leastPopularDays = bookingDayDates.filter(day => {
+      return allBookingsFrequency[day] === sortedByPopularity[(sortedByPopularity.length - 1)];
+    });
+    mostPopularDays.forEach(day => {
+      domUpdates.displayMostPopularBookingDay(day);
+    })
+    leastPopularDays.forEach(day => {
+      domUpdates.displayLeastPopularBookingDay(day);
+    })
+  }
+
   static displayToDom(date) {
     domUpdates.displayPercentageOfBookings(
       this.percentageOfRoomsOccupiedToday(date)

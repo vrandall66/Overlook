@@ -66,12 +66,30 @@ const domUpdates = {
     $("#room-service-orders-header").text(`Orders for ${user.name}`);
     $("#bookings-header").text(`Bookings for ${user.name}`);
     $("#customer-dropdown-form").remove();
-    $('#no-user').remove();
-    $('#all-room-service-orders').remove();
+    $("#no-user").remove();
+    $("#all-room-service-orders").remove();
   },
 
   noUserFound() {
-    $(`<p id="no-user">There is not a user under that name</p>`).appendTo($('#top-of-find-user-form'))
+    $(`<p id="no-user">There is not a user under that name</p>`).appendTo(
+      $("#top-of-find-user-form")
+    );
+  },
+
+  displayBookingsOnSpecifiedDate(date) {
+    // .appendTo($("#all-previous-bookings"))
+  },
+
+  displayMostPopularBookingDay(day) {
+    $(`<span class="popular-bookings">|${day}|</span></ br>`).appendTo(
+      $("#most-booking-dates")
+    );
+  },
+
+  displayLeastPopularBookingDay(day) {
+    $(`<span class="popular-bookings">|${day}|</span></ br>`).appendTo(
+      "#least-booking-dates"
+    );
   }
 };
 

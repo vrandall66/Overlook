@@ -110,6 +110,9 @@ function findUserFromInput(nameInput) {
     let name = Object.values(person)[1].toUpperCase();
     return name.includes(nameInput);
   });
+  if (filtered.length === 0) {
+    domUpdates.noUserFound();
+  }
   filtered.forEach(guest => domUpdates.displayFilteredCustomers(guest));
 }
 
@@ -130,6 +133,7 @@ function createGuest(e) {
   let newGuest = new Guest(newGuestObject);
   allCustomers.push(newGuest);
   Hotel.currentCustomer = newGuest;
+  domUpdates.changeName(newGuest);
 }
 
 function filterForCustomerData() {
@@ -144,6 +148,7 @@ function filterForCustomerData() {
   appendUserRoomServiceData(userRoomServices);
   totalMoneySpentOnRoomService(user);
   moneySpentOnRoomService(getDate(), user);
+  domUpdates.changeName(user);
 }
 
 function findCustomerData(selected, data) {

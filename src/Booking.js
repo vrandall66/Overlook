@@ -75,22 +75,24 @@ class Booking {
 
   static sortBookingFrequency(allBookingsFrequency) {
     let bookingDayNumbers = Object.values(allBookingsFrequency);
+    let bookingDayDates = Object.keys(allBookingsFrequency);
     let sortedByPopularity = bookingDayNumbers.sort((a, b) => {
       return b - a;
     });
-    let bookingDayDates = Object.keys(allBookingsFrequency);
-    let mostPopularDays = bookingDayDates.filter(day => {
-      return allBookingsFrequency[day] === sortedByPopularity[0];
-    });
-    let leastPopularDays = bookingDayDates.filter(day => {
-      return allBookingsFrequency[day] === sortedByPopularity[(sortedByPopularity.length - 1)];
-    });
-    mostPopularDays.forEach(day => {
-      domUpdates.displayMostPopularBookingDay(day);
-    })
-    leastPopularDays.forEach(day => {
-      domUpdates.displayLeastPopularBookingDay(day);
-    })
+    let mostPopularDays = bookingDayDates
+      .filter(day => {
+        return allBookingsFrequency[day] === sortedByPopularity[0];
+      })
+      .forEach(day => domUpdates.displayMostPopularBookingDay(day));
+    let leastPopularDays = bookingDayDates
+      .filter(day => {
+        return (
+          allBookingsFrequency[day] ===
+          sortedByPopularity[sortedByPopularity.length - 1]
+        );
+      })
+      .forEach(day => domUpdates.displayLeastPopularBookingDay(day));
+    return mostPopularDays, leastPopularDays;
   }
 
   static displayToDom(date) {

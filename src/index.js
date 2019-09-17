@@ -2,6 +2,7 @@ import $ from "jquery";
 import domUpdates from "./domUpdates";
 import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
+import RoomServices from "./RoomServices.js";
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
@@ -69,7 +70,7 @@ $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
 $("#select-customer-button").on("click", filterForCustomerData);
 $("#orders-calendar-btn").on("click", updateOrdersToDate);
-$('#bookings-calendar-btn').on("click", updateBookingsToDate);
+$("#bookings-calendar-btn").on("click", updateBookingsToDate);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -200,11 +201,17 @@ function moneySpentOnRoomService(date, user) {
 }
 
 function updateOrdersToDate() {
-  let date = $("#orders-calendar").val().split('-').join('/');
-  console.log(date)
+  let date = $("#orders-calendar")
+    .val()
+    .split("-")
+    .join("/");
+  console.log(hotel.roomServices.findAllRoomService(date));
 }
 
 function updateBookingsToDate() {
-  let date = $('#bookings-calendar').val().split('-').join('/');
-  console.log(date)
+  let date = $("#bookings-calendar")
+    .val()
+    .split("-")
+    .join("/");
+  console.log(date);
 }

@@ -83,12 +83,13 @@ a:hover {
 
 .left-main-container,
 .right-main-container {
+  align-content: space-between;
   display: flex;
   flex-direction: column;
   height: 80vh;
   justify-content: space-around;
   padding: 1% 1%;
-  width: 48%;
+  width: 30%;
 }
 
 .right-main-container {
@@ -105,7 +106,7 @@ a:hover {
 #total-rooms-available {
   height: 80vh;
   overflow: scroll;
-  width: 100%;
+  width: 50%;
 }
 
 #main-tab-available-rooms {

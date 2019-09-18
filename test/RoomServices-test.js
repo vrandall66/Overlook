@@ -2,7 +2,7 @@ import chai from "chai";
 const expect = chai.expect;
 import spies from "chai-spies";
 chai.use(spies);
-import RoomServices from "../src/RoomServices.js";
+import RoomServiceRepo from "../src/RoomServiceRepo.js";
 import data from "../data/allData.js";
 import domUpdates from "../src/domUpdates.js";
 chai.spy.on(
@@ -11,22 +11,21 @@ chai.spy.on(
   () => {}
 );
 
-let roomServiced;
+let roomServiceRepo;
 
-beforeEach(() => {
-  let date = "2019/07/28";
-  roomServiced = new RoomServices(data.roomServices, date);
+before(() => {
+  roomServiceRepo = new RoomServiceRepo(data.roomServices)
 });
 
 describe("RoomServices", () => {
   it("should be an instance of RoomServices", () => {
-    expect(RoomServices).to.be.a("function");
-    expect(roomServiced).to.be.an.instanceof(RoomServices);
+    expect(RoomServiceRepo).to.be.a("function");
+    expect(roomServiceRepo).to.be.an.instanceof(RoomServiceRepo);
   });
 
   it("should find all daily rooms that ordered room service", () => {
-    expect(roomServiced.findAllRoomService).to.be.a("function");
-    expect(roomServiced.findAllRoomService("2019/07/28")).to.eql([
+    expect(roomServiceRepo.findAllByDate).to.be.a("function");
+    expect(roomServiceRepo.findAllByDate("9/07/28")).to.eql([
       {
         date: "2019/07/28",
         food: "Licensed Soft Sandwich",
@@ -49,17 +48,19 @@ describe("RoomServices", () => {
   });
 
   it("should calculate the total revenue from Room Service for the day", () => {
-    expect(roomServiced.totalRevenueToday).to.be.a("function");
-    expect(roomServiced.totalRevenueToday("2019/07/28")).to.equal(65.35);
+    expect(roomServiceRepo.totalRevenueForDate).to.be.a("function");
+    expect(roomServiceRepo.totalRevenueForDate("2019/07/28")).to.equal(65.35);
   });
 
   it("should find all items ordered on a given day", () => {
-    expect(roomServiced.allDailyOrderedItems).to.be.a("function");
+    expect(roomServiceRepo.allDailyOrderedItems).to.be.a("function");
+    roomServiceRepo.allDailyOrderedItems("2019/07/28");
     expect(domUpdates.displayAllRoomServiceOrders).to.have.been.called();
   });
 
   it("should display information to the DOM", () => {
-    expect(roomServiced.displayToDom).to.be.a("function");
+    expect(roomServiceRepo.displayToDom).to.be.a("function");
+    roomServiceRepo.displayToDom();
     expect(domUpdates.displayRoomServiceCharges).to.have.been.called();
   });
 });

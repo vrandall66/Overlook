@@ -1,11 +1,8 @@
 import $ from "jquery";
 import domUpdates from "./domUpdates";
-import Hotel from "./Hotel.js";
 import Guest from "./Guest.js";
-import RoomServices from "./RoomServices.js";
+import RoomServiceRepo from "./RoomServiceRepo.js";
 import Booking from "./Booking.js";
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import "./css/base.scss";
 
 $(".tabs-nav a").on("click", function(event) {
@@ -18,9 +15,9 @@ $(".tabs-nav a").on("click", function(event) {
   $($(this).attr("href")).show();
 });
 
+let roomServiceRepo;
 window.currentGuest;
 window.bookings = [];
-window.orders = [];
 window.customers = [];
 
 let usersData = fetch(
@@ -43,7 +40,7 @@ Promise.all([usersData, roomsData, bookingsData, roomServicesData]).then(
     Guest.createFromData(values[0]);
     allData.rooms = values[1];
     Booking.createFromData(values[2]);
-    RoomServices.createFromData(values[3]);
+    roomServiceRepo = new RoomServiceRepo(values[3]);
     return allData;
   }
 );
@@ -65,8 +62,8 @@ function onPageLoad() {
   setTimeout(() => {
     displayMain();
     getDate();
-    RoomServices.displayToDom(getDate());
-    RoomServices.allDailyOrderedItems(getDate());
+    roomServiceRepo.displayToDom(getDate());
+    roomServiceRepo.allDailyOrderedItems(getDate());
     Booking.displayToDom(getDate());
     Booking.evaluateBookingFrequency();
   }, 1000);
@@ -134,9 +131,8 @@ function filterForCustomerData() {
   let selected = $("#name-option").val();
   let user = findUserFromSelect(selected);
   let bookings = window.bookings;
-  let roomService = window.orders;
   let userBookings = findCustomerData(selected, bookings, user);
-  let userRoomServices = findCustomerData(selected, roomService, user);
+  let userRoomServices = findCustomerData(selected, roomServiceRepo.data, user);
   window.currentCustomer = user;
   appendUserBookingsData(userBookings);
   appendUserRoomServiceData(userRoomServices);
@@ -200,7 +196,7 @@ function updateOrdersToDate() {
     .val()
     .split("-")
     .join("/");
-  RoomServices.allDailyOrderedItems(date);
+  roomServiceRepo.allDailyOrderedItems(date);
 }
 
 function updateBookingsToDate() {
@@ -208,7 +204,7 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-    domUpdates.appendBookingsTable();
+  domUpdates.appendBookingsTable();
   Booking.showBookedRooms(date, allData.rooms);
 }
 

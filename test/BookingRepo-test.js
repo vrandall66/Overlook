@@ -22,7 +22,7 @@ chai.spy.on(
 let bookingRepo;
 
 beforeEach(() => {
-  bookingRepo = new BookingRepo(data.bookings);
+  bookingRepo = new BookingRepo(data.rooms, data.bookings);
 });
 
 describe("Booking", () => {
@@ -371,7 +371,7 @@ describe("Booking", () => {
   it("should calculate the percentage of occupied rooms for a given day", () => {
     expect(bookingRepo.percentageOfRoomsOccupiedToday).to.be.a("function");
     expect(bookingRepo.percentageOfRoomsOccupiedToday("2019/07/28")).to.equal(
-      32
+      68
     );
   });
 

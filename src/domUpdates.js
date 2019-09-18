@@ -36,9 +36,8 @@ const domUpdates = {
     previousBookingDiv.addClass("container");
     previousBookingDiv.addClass("bookings-container");
     previousBookingDiv.removeClass("hidden");
-    $(".hidden").removeClass("hidden");
     $(
-      `<span data-id="${customer.id}">Booking Date: ${customer.date} Room Number: ${customer.roomNumber}</span></ br>`
+      `<span data-id="${customer.id}"><b>Booking Date:</b> ${customer.date} <b>Room Number:</b> ${customer.roomNumber}</span></ br>`
     ).appendTo(previousBookingDiv);
   },
 
@@ -91,11 +90,29 @@ const domUpdates = {
     $("#all-previous-bookings").addClass("container");
     $("#all-previous-bookings").removeClass("hidden");
     $("#available-bookings").addClass("container");
-    $("#available-bookings").removeClass("hidden");
-    $("#available-rooms-date").removeClass("hidden");
-    $(
-      `<span id="all-available-rooms-day" data-id="${room.number}">Room Number: ${room.number}: Room Type: ${room.roomType} Bed Size: ${room.bedSize}</span></ br>`
-    ).appendTo($("#available-bookings"));
+    $(`<tr class="book-room" data-room-number=${room.number}>
+      <td>
+        ${room.number}
+      </td>
+      <td>
+        ${room.roomType}
+      </td>
+      <td>
+        ${room.bidet}
+      </td>
+      <td>
+        ${room.bedSize}
+      </td>
+      <td>
+        ${room.numBeds}
+      </td>
+      <td>
+        $${room.costPerNight}
+      </td>
+      <td>
+      <button data-id=${room.number} type="button">Book Room</button>
+      </td>
+    </tr>`).appendTo($("#available-rooms-date-table"));
   },
 
   displayMostPopularBookingDay(day) {
@@ -131,6 +148,14 @@ const domUpdates = {
   generateBookingForm() {
     $(`<form id="new-booking-form" class="bookings-form">
     <input type="text" placeholder=""`);
+  },
+
+  appendBookingsTable() {
+    $("#available-bookings").removeClass("hidden");
+    $("#available-rooms-date").removeClass("hidden");
+    $("#available-rooms-date-container").removeClass("hidden");
+    $("#available-rooms-date-table").removeClass("hidden");
+    $(".available-bookings-table").removeClass("hidden");
   }
 };
 

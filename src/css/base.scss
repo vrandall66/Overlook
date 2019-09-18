@@ -104,10 +104,6 @@ a:hover {
   padding: 2% 2%;
 }
 
-.bookings-container {
-  width: 33%;
-}
-
 .today-date,
 .daily-revenue,
 .rooms-available {
@@ -136,4 +132,17 @@ a:hover {
 
 span {
   display: block;
+}
+
+.bookings-container {
+  background-color: $background;
+  border: 2px solid $other-background;
+  height: 16em;
+  overflow: scroll;
+  padding: 2% 2%;
+  width: 23%;
+}
+
+#available-rooms-date-container {
+  height: 85vh;
 }

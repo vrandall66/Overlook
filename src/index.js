@@ -208,6 +208,7 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
+    domUpdates.appendBookingsTable();
   Booking.showBookedRooms(date, allData.rooms);
 }
 

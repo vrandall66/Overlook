@@ -62,7 +62,9 @@
         </section>
         <section id="customers-tab">
           <form id="find-customers" class="container">
-              <h2 id="current-customer" data="customer">Search for a customer: </h2>
+            <h2 id="current-customer" data="customer">
+              Search for a customer:
+            </h2>
             <div id="top-of-find-user-form">
               <input
                 type="search"
@@ -94,15 +96,17 @@
         </section>
         <section id="orders-tab">
           <form id="orders-tab-form" class="container">
-          <h2 id="room-service-orders-header">Room service orders</h2>
-          <input id="orders-calendar" type="date" />
-          <button id="orders-calendar-btn" type="button">Search By Date</button>
+            <h2 id="room-service-orders-header">Room service orders</h2>
+            <input id="orders-calendar" type="date" />
+            <button id="orders-calendar-btn" type="button">
+              Search By Date
+            </button>
           </form>
           <div id="all-previous-room-service-orders" class="hidden"></div>
           <div id="daily-room-service-orders" class="container"></div>
         </section>
         <section id="bookings-tab">
-          <form id="bookings-tab-form" class="bookings-container container">
+          <form id="bookings-tab-form" class="bookings-container">
             <h2 id="bookings-header">Bookings</h2>
             <input id="bookings-calendar" type="date" />
             <button id="bookings-calendar-btn" type="button">
@@ -118,8 +122,20 @@
           <div id="all-previous-bookings" class="hidden">
             <h4 class="hidden">All Previous Bookings:</h4>
           </div>
-          <div id="available-bookings" class="hidden">
-            <h4 id="available-rooms-date" class="hidden">Available Rooms On Selected Date:</h4>
+          <div id="available-rooms-date-container" class="hidden container">
+            <table id="available-bookings" class="hidden">
+              <thead class="hidden" id="available-rooms-date-table">
+                <tr class="available-bookings-table hidden">
+                  <th class="available-bookings-table hidden">Room Number</th>
+                  <th class="available-bookings-table hidden">Room Type</th>
+                  <th class="available-bookings-table hidden">Bidet</th>
+                  <th class="available-bookings-table hidden">Bed Size</th>
+                  <th class="available-bookings-table hidden">Number of Beds</th>
+                  <th class="available-bookings-table hidden">Cost Per Night</th>
+                  <th class="available-bookings-table hidden">Select Room</th>
+                </tr>
+              </thead>
+            </table>
           </div>
         </section>
       </section>

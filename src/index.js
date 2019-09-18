@@ -208,5 +208,7 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  domUpdates.displayBookingsOnSpecifiedDate(Booking.showBookedRooms(date, allData.rooms))
+  // domUpdates.displayAvailableRoomsOnSpecifiedDate(
+    Booking.showBookedRooms(date, allData.rooms)
+    // )
 }

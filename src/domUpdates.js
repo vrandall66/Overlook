@@ -32,7 +32,7 @@ const domUpdates = {
   },
 
   displayPreviousBookings(customer) {
-    let previousBookingDiv = $('#all-previous-bookings');
+    let previousBookingDiv = $("#all-previous-bookings");
     previousBookingDiv.addClass("container, bookings-container");
     previousBookingDiv.removeClass("hidden");
     $(".hidden").removeClass("hidden");
@@ -42,9 +42,9 @@ const domUpdates = {
   },
 
   displayPreviousRoomServices(customer) {
-    $('#daily-room-service-orders').removeClass('container')
+    $("#daily-room-service-orders").removeClass("container");
     $("#all-previous-room-service-orders").addClass("container");
-    $("#all-previous-room-service-orders").removeClass("hidden")
+    $("#all-previous-room-service-orders").removeClass("hidden");
     $(
       `<span data-id="${customer.id}">Order Date: ${customer.date}: Item Ordered: ${customer.food}: $${customer.totalCost}</span></ br>`
     ).appendTo($("#all-previous-room-service-orders"));
@@ -87,7 +87,8 @@ const domUpdates = {
   },
 
   displayAvailableRoomsOnSpecifiedDate(room) {
-    $("#all-previous-bookings").addClass('container');
+    $("#all-previous-bookings").addClass("container");
+    $("#all-previous-bookings").removeClass("hidden");
     $(
       `<span id="all-available-rooms-day" data-id="${room.number}">Room Number: ${room.number}: Room Type: ${room.roomType} Bed Size: ${room.bedSize}</span></ br>`
     ).appendTo($("#all-previous-bookings"));

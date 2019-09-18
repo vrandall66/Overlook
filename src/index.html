@@ -19,9 +19,9 @@
       </ul>
       <section class="all-tabs">
         <section id="main-tab">
+          <h2>Homepage</h2>
           <div class="left-main-container">
             <div class="total-rooms-available container">
-                <h2>Homepage</h2>
               <h5>Total Rooms Available</h5>
               <p id="rooms-available-number"></p>
               <ul class="room-types-available">
@@ -62,7 +62,7 @@
         </section>
         <section id="customers-tab">
           <form id="find-customers" class="container">
-              <h2 id="current-customer">Search for a customer: </h2>
+              <h2 id="current-customer" data="customer">Search for a customer: </h2>
             <div id="top-of-find-user-form">
               <input
                 type="search"
@@ -93,22 +93,22 @@
           </div>
         </section>
         <section id="orders-tab">
-          <div id="orders-tab-form" class="container">
+          <form id="orders-tab-form" class="container">
           <h2 id="room-service-orders-header">Room service orders</h2>
           <input id="orders-calendar" type="date" />
           <button id="orders-calendar-btn" type="button">Search By Date</button>
-          </div>
+          </form>
           <div id="all-previous-room-service-orders" class="hidden"></div>
           <div id="daily-room-service-orders" class="container"></div>
         </section>
         <section id="bookings-tab">
-          <div id="bookings-tab-form" class="bookings-container container">
+          <form id="bookings-tab-form" class="bookings-container container">
             <h2 id="bookings-header">Bookings</h2>
             <input id="bookings-calendar" type="date" />
             <button id="bookings-calendar-btn" type="button">
               Search By Date
             </button>
-          </div>
+          </form>
           <div id="most-booking-dates" class="bookings-container container">
             <h4>Busiest Day(s):</h4>
           </div>
@@ -117,6 +117,9 @@
           </div>
           <div id="all-previous-bookings" class="hidden">
             <h4 class="hidden">All Previous Bookings:</h4>
+          </div>
+          <div id="available-bookings" class="hidden">
+            <h4 id="available-rooms-date" class="hidden">Available Rooms On Selected Date:</h4>
           </div>
         </section>
       </section>

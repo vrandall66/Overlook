@@ -53,6 +53,7 @@ $("#customer-add-btn").on("click", createGuest);
 $("#select-customer-button").on("click", filterForCustomerData);
 $("#orders-calendar-btn").on("click", updateOrdersToDate);
 $("#bookings-calendar-btn").on("click", updateBookingsToDate);
+$("#create-new-booking").on("click", domUpdates.generateBookingForm);
 
 function displayMain() {
   $(".all-tabs section").hide();
@@ -126,6 +127,7 @@ function createGuest(e) {
   window.currentCustomer = newGuest;
   domUpdates.changeName(newGuest);
   domUpdates.displayErrorsForNoCustomerData(nameInput);
+  domUpdates.displayValidCustomerButtons();
 }
 
 function filterForCustomerData() {
@@ -145,7 +147,6 @@ function filterForCustomerData() {
 }
 
 function findCustomerData(selected, data, user) {
-  console.log('selected top fn', selected)
   let filtered = data.filter(log => {
     return log.userID === parseInt(selected);
   });
@@ -162,7 +163,6 @@ function appendUserBookingsData(filteredData) {
 }
 
 function appendUserRoomServiceData(filteredData) {
-  console.log(filteredData.length)
   filteredData.forEach(log => {
     domUpdates.displayPreviousRoomServices(log);
   });
@@ -208,7 +208,9 @@ function updateBookingsToDate() {
     .val()
     .split("-")
     .join("/");
-  // domUpdates.displayAvailableRoomsOnSpecifiedDate(
-    Booking.showBookedRooms(date, allData.rooms)
-    // )
+  Booking.showBookedRooms(date, allData.rooms);
 }
+
+// function generateBookingForm() {
+//   domUpdates.
+// }

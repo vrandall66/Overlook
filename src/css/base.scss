@@ -100,6 +100,7 @@ a:hover {
   background-color: $background;
   border: 2px solid $other-background;
   height: 16em;
+  overflow: scroll;
   padding: 2% 2%;
 }
 
@@ -131,4 +132,8 @@ a:hover {
 
 .hidden {
   display: none;
+}
+
+span {
+  display: block;
 }

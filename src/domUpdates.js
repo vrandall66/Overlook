@@ -33,7 +33,8 @@ const domUpdates = {
 
   displayPreviousBookings(customer) {
     let previousBookingDiv = $("#all-previous-bookings");
-    previousBookingDiv.addClass("container, bookings-container");
+    previousBookingDiv.addClass("container");
+    previousBookingDiv.addClass("bookings-container");
     previousBookingDiv.removeClass("hidden");
     $(".hidden").removeClass("hidden");
     $(
@@ -89,9 +90,12 @@ const domUpdates = {
   displayAvailableRoomsOnSpecifiedDate(room) {
     $("#all-previous-bookings").addClass("container");
     $("#all-previous-bookings").removeClass("hidden");
+    $("#available-bookings").addClass("container");
+    $("#available-bookings").removeClass("hidden");
+    $("#available-rooms-date").removeClass("hidden");
     $(
       `<span id="all-available-rooms-day" data-id="${room.number}">Room Number: ${room.number}: Room Type: ${room.roomType} Bed Size: ${room.bedSize}</span></ br>`
-    ).appendTo($("#all-previous-bookings"));
+    ).appendTo($("#available-bookings"));
   },
 
   displayMostPopularBookingDay(day) {
@@ -112,12 +116,21 @@ const domUpdates = {
   },
 
   displayValidCustomerButtons() {
-    $(`<div id="customer-upgrades-form">
-    <button id="create-new-booking" type="button">New Booking</button>
-    <button id="create-new-order" type="button">Order Room Service</button>
-    <button id="customer-upgrade-room" type="button">Upgrade Room</button>
+    $(`
     <button id="calculate-total-bill" type="button">Calculate Total Bill</button>
-    </div>`).appendTo($("#find-customers"));
+    `).appendTo($("#find-customers"));
+    $(`<form class="bookings-form">
+    <button id="create-new-booking" type="button"> New Booking</button>
+    <button id="customer-upgrade-room" type="button">Upgrade Room</button>
+    </form>`).appendTo($("#bookings-tab-form"));
+    $(
+      `<button id="create-new-order" type="button">Order Room Service</button>`
+    ).appendTo($("#orders-tab-form"));
+  },
+
+  generateBookingForm() {
+    $(`<form id="new-booking-form" class="bookings-form">
+    <input type="text" placeholder=""`);
   }
 };
 

@@ -19,4 +19,13 @@ describe("RoomService", () => {
     expect(RoomService).to.be.a("function");
     expect(roomService).to.be.an.instanceof(RoomService);
   });
+
+  it("should hold data", () => {
+    expect(roomService).to.eql({
+      userID: 6,
+      date: "2019/09/18",
+      food: "Philly Cheese Steak",
+      totalCost: 9.75
+    });
+  });
 });

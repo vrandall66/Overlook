@@ -23,6 +23,13 @@ describe("RoomServices", () => {
     expect(roomServiceRepo).to.be.an.instanceof(RoomServiceRepo);
   });
 
+  it("should instantiate Room Service data", () => {
+    expect(roomServiceRepo.createFromData).to.be.a("function");
+    expect(roomServiceRepo.createFromData(data.roomServices).length).to.equal(
+      100
+    );
+  });
+
   it("should find all daily rooms that ordered room service", () => {
     expect(roomServiceRepo.findAllByDate).to.be.a("function");
     expect(roomServiceRepo.findAllByDate("9/07/28")).to.eql([

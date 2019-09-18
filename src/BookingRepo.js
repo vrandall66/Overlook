@@ -1,10 +1,10 @@
 import domUpdates from "./domUpdates";
-import allData from "../data/allData";
 import Booking from "./Booking.js";
 
 class BookingRepo {
-  constructor(data) {
-    this.data = this.createFromData(data);
+  constructor(data1, data2) {
+    this.roomsData = data1.rooms;
+    this.bookingData = this.createFromData(data2);
   }
 
   createFromData(allBookings) {
@@ -18,7 +18,7 @@ class BookingRepo {
   }
 
   findBookedRooms(date) {
-    let booked = this.data.filter(booking => {
+    let booked = this.bookingData.filter(booking => {
       return booking.date === date;
     });
     let sorted = booked.sort((a, b) => {
@@ -32,12 +32,12 @@ class BookingRepo {
     return found.map(room => room.roomNumber);
   }
 
-  showBookedRooms(date, roomsData) {
+  showBookedRooms(date) {
     let alreadyBooked = this.findBookedRooms(date);
     let bookedRoomNumbers = alreadyBooked.map(booking => {
       return booking.roomNumber;
     });
-    let availableRooms = roomsData.rooms.filter(room => {
+    let availableRooms = this.roomsData.filter(room => {
       return !bookedRoomNumbers.includes(room.number);
     });
     availableRooms.forEach(room => {
@@ -48,14 +48,14 @@ class BookingRepo {
 
   totalRoomsAvailableToday(date) {
     let bookedRooms = this.findBookedRooms(date);
-    let number = allData.rooms.rooms.length - bookedRooms.length;
+    let number = this.roomsData.length - bookedRooms.length;
     return number;
   }
 
   totalBookingRevenueToday(date) {
     let roomsBooked = this.findBookedRooms(date);
     let revenue = roomsBooked.reduce((num, bookedRoom) => {
-      allData.rooms.rooms.forEach(room => {
+      this.roomsData.forEach(room => {
         if (room.number === bookedRoom.roomNumber) {
           return (num += room.costPerNight);
         }
@@ -67,12 +67,12 @@ class BookingRepo {
 
   percentageOfRoomsOccupiedToday(date) {
     let roomsBooked = this.findBookedRooms(date);
-    let percentage = (roomsBooked.length / allData.rooms.rooms.length) * 100;
+    let percentage = (roomsBooked.length / this.roomsData.length) * 100;
     return percentage;
   }
 
   evaluateBookingFrequency() {
-    let totalBookingsOnEachDay = this.data.reduce(
+    let totalBookingsOnEachDay = this.bookingData.reduce(
       (organizedBookings, reservation) => {
         if (!organizedBookings[reservation.date]) {
           organizedBookings[reservation.date] = 0;

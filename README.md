@@ -57,10 +57,10 @@ Open up http://localhost:8080/ in your browser to start using the app!
 
 ## Screenshots
 
-![Desktop View of the Homepage](../src/images/Homepage.png "Desktop View of the Homepage")
+![Desktop View of the Homepage](/src/images/Homepage.png "Desktop View of the Homepage")
 
-![Desktop View of the Customers Tab](../src/images/Customers.png "of the Customers Tab")
+![Desktop View of the Customers Tab](/src/images/Customers.png "of the Customers Tab")
 
-![Desktop View of the Bookings Tab while a current guest is selected](../src/images/Bookings.png "Desktop View of the Bookings Tab while a current guest is selected")
+![Desktop View of the Bookings Tab while a current guest is selected](/src/images/Bookings.png "Desktop View of the Bookings Tab while a current guest is selected")
 
 ### Built By [Vanessa Randall](https://github.com/vrandall66)

@@ -14,7 +14,7 @@ chai.spy.on(
 let roomServiceRepo;
 
 before(() => {
-  roomServiceRepo = new RoomServiceRepo(data.roomServices)
+  roomServiceRepo = new RoomServiceRepo(data.roomServices);
 });
 
 describe("RoomServices", () => {

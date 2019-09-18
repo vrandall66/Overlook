@@ -2,7 +2,8 @@ import $ from "jquery";
 import domUpdates from "./domUpdates";
 import Guest from "./Guest.js";
 import RoomServiceRepo from "./RoomServiceRepo.js";
-import Booking from "./Booking.js";
+import BookingRepo from "./BookingRepo.js";
+import Booking from "./Booking.js"
 import "./css/base.scss";
 
 $(".tabs-nav a").on("click", function(event) {
@@ -15,9 +16,8 @@ $(".tabs-nav a").on("click", function(event) {
   $($(this).attr("href")).show();
 });
 
-let roomServiceRepo;
+let bookingRepo, roomServiceRepo;
 window.currentGuest;
-window.bookings = [];
 window.customers = [];
 
 let usersData = fetch(
@@ -39,7 +39,7 @@ Promise.all([usersData, roomsData, bookingsData, roomServicesData]).then(
   values => {
     Guest.createFromData(values[0]);
     allData.rooms = values[1];
-    Booking.createFromData(values[2]);
+    bookingRepo = new BookingRepo(values[2]);
     roomServiceRepo = new RoomServiceRepo(values[3]);
     return allData;
   }
@@ -64,8 +64,8 @@ function onPageLoad() {
     getDate();
     roomServiceRepo.displayToDom(getDate());
     roomServiceRepo.allDailyOrderedItems(getDate());
-    Booking.displayToDom(getDate());
-    Booking.evaluateBookingFrequency();
+    bookingRepo.displayToDom(getDate());
+    bookingRepo.evaluateBookingFrequency();
   }, 1000);
 }
 
@@ -130,8 +130,7 @@ function createGuest(e) {
 function filterForCustomerData() {
   let selected = $("#name-option").val();
   let user = findUserFromSelect(selected);
-  let bookings = window.bookings;
-  let userBookings = findCustomerData(selected, bookings, user);
+  let userBookings = findCustomerData(selected, bookingRepo.data, user);
   let userRoomServices = findCustomerData(selected, roomServiceRepo.data, user);
   window.currentCustomer = user;
   appendUserBookingsData(userBookings);
@@ -165,7 +164,7 @@ function appendUserRoomServiceData(filteredData) {
 }
 
 function totalMoneySpentOnRoomService(user) {
-  let allOrders = window.orders.filter(order => {
+  let allOrders = roomServiceRepo.data.filter(order => {
     return order.userID === user.id;
   });
   let totalMoney = allOrders.reduce((money, currentOrder) => {
@@ -177,7 +176,7 @@ function totalMoneySpentOnRoomService(user) {
 }
 
 function moneySpentOnRoomService(date, user) {
-  let ordersToday = window.orders.filter(order => {
+  let ordersToday = roomServiceRepo.data.filter(order => {
     return order.date.includes(date);
   });
   let userOrdersToday = ordersToday.filter(eachOrder => {
@@ -205,7 +204,7 @@ function updateBookingsToDate() {
     .split("-")
     .join("/");
   domUpdates.appendBookingsTable();
-  Booking.showBookedRooms(date, allData.rooms);
+  bookingRepo.showBookedRooms(date, allData.rooms);
 }
 
 // function generateBookingForm() {

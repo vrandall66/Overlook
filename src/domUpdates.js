@@ -128,8 +128,8 @@ const domUpdates = {
   },
 
   displayErrorsForNoCustomerData(data, name) {
-    // if (data[0] == RoomService)
-    console.log("data[0]", data[0]);
+  //   // if (data[0] == RoomService)
+  //   console.log("data[0]", data[0]);
   },
 
   displayValidCustomerButtons() {

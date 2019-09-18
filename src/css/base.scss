@@ -10,6 +10,7 @@
 
 body {
   background-color: $background;
+  height: 93vh;
 }
 
 h1 {
@@ -21,7 +22,6 @@ h1 {
 
 main {
   color: $main-font;
-  height: 100vh;
   width: 100%;
 }
 
@@ -76,7 +76,7 @@ a:hover {
 #bookings-tab {
   align-content: center;
   display: flex;
-  height: 100vh;
+  height: 88vh;
   justify-content: center;
   padding: 1% 1%;
 }
@@ -86,24 +86,27 @@ a:hover {
 .right-main-container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-  justify-content: space-between;
+  height: 80vh;
+  justify-content: space-around;
   padding: 1% 1%;
   width: 33%;
 }
 
 .right-main-container {
-  width: 20%;
+  width: 25%;
 }
 
 .container {
   background-color: $background;
   border: 2px solid $other-background;
   height: 16em;
+  overflow: scroll;
   padding: 2% 2%;
 }
 
-.today-date {
+.today-date,
+.daily-revenue,
+.rooms-available {
   height: 6em;
 }
 
@@ -121,4 +124,25 @@ a:hover {
 .customer-search,
 .customer-search-button {
   height: 2.5em;
+}
+
+.hidden {
+  display: none;
+}
+
+span {
+  display: block;
+}
+
+.bookings-container {
+  background-color: $background;
+  border: 2px solid $other-background;
+  height: 16em;
+  overflow: scroll;
+  padding: 2% 2%;
+  width: 23%;
+}
+
+#available-rooms-date-container {
+  height: 85vh;
 }

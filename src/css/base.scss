@@ -82,14 +82,13 @@ a:hover {
 }
 
 .left-main-container,
-.center-main-container,
 .right-main-container {
   display: flex;
   flex-direction: column;
   height: 80vh;
   justify-content: space-around;
   padding: 1% 1%;
-  width: 33%;
+  width: 48%;
 }
 
 .right-main-container {
@@ -99,9 +98,18 @@ a:hover {
 .container {
   background-color: $background;
   border: 2px solid $other-background;
-  height: 16em;
   overflow: scroll;
   padding: 2% 2%;
+}
+
+#total-rooms-available {
+  height: 80vh;
+  overflow: scroll;
+  width: 100%;
+}
+
+#main-tab-available-rooms {
+  height: 80vh;
 }
 
 .today-date,
@@ -134,7 +142,9 @@ span {
   display: block;
 }
 
-.bookings-container {
+.bookings-container,
+.customers-container,
+.orders-container {
   background-color: $background;
   border: 2px solid $other-background;
   height: 16em;

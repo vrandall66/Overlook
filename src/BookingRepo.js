@@ -40,6 +40,7 @@ class BookingRepo {
     let availableRooms = this.roomsData.filter(room => {
       return !bookedRoomNumbers.includes(room.number);
     });
+    this.filterByRoomType(availableRooms);
     availableRooms.forEach(room => {
       domUpdates.displayAvailableRoomsOnSpecifiedDate(room);
     });
@@ -67,7 +68,9 @@ class BookingRepo {
 
   percentageOfRoomsOccupiedToday(date) {
     let roomsBooked = this.findBookedRooms(date);
-    let percentage = (roomsBooked.length / this.roomsData.length) * 100;
+    let percentage =
+      ((roomsBooked.length - this.roomsData.length) / this.roomsData.length) *
+      -100;
     return percentage;
   }
 
@@ -106,6 +109,22 @@ class BookingRepo {
       })
       .forEach(day => domUpdates.displayLeastPopularBookingDay(day));
     return mostPopularDays, leastPopularDays;
+  }
+
+  filterByRoomType(availNumbers) {
+    let organizedByRoom = availNumbers.reduce((roomType, room) => {
+      if (!roomType[room.roomType]) {
+        roomType[room.roomType] = [];
+      }
+      roomType[room.roomType].push(room);
+      return roomType;
+    }, {});
+    let roomTypeVals = Object.values(organizedByRoom);
+    roomTypeVals.forEach(roomType => {
+      roomType.forEach(room => {
+        domUpdates.appendAvailableRoomsToday(room);
+      });
+    });
   }
 
   displayToDom(date) {

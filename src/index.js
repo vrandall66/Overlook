@@ -6,16 +6,6 @@ import BookingRepo from "./BookingRepo.js";
 import GuestRepo from "./GuestRepo.js";
 import "./css/base.scss";
 
-$(".tabs-nav a").on("click", function(event) {
-  event.preventDefault();
-  $(".tabs-nav li").removeClass("current");
-  $(this)
-    .parent()
-    .addClass("current");
-  $(".all-tabs section").hide();
-  $($(this).attr("href")).show();
-});
-
 let guestRepo, bookingRepo, roomServiceRepo;
 
 let usersData = fetch(
@@ -39,6 +29,16 @@ Promise.all([usersData, roomsData, bookingsData, roomServicesData]).then(
   }
 );
 
+$(".tabs-nav a").on("click", function(event) {
+  event.preventDefault();
+  $(".tabs-nav li").removeClass("current");
+  $(this)
+    .parent()
+    .addClass("current");
+  $(".all-tabs section").hide();
+  $($(this).attr("href")).show();
+});
+
 $("#customer-search-btn").on("click", searchForCustomer);
 $("#customer-add-btn").on("click", createGuest);
 $("#select-customer-button").on("click", filterForCustomerData);
@@ -60,7 +60,8 @@ function onPageLoad() {
     roomServiceRepo.allDailyOrderedItems(getDate());
     bookingRepo.displayToDom(getDate());
     bookingRepo.evaluateBookingFrequency();
-  }, 1000);
+    bookingRepo.showBookedRooms(getDate());
+  }, 600);
 }
 
 onPageLoad();

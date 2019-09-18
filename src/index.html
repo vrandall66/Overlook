@@ -22,17 +22,29 @@
           <h2>Homepage</h2>
           <div class="left-main-container">
             <div class="total-rooms-available container">
-              <h5>Total Rooms Available</h5>
-              <p id="rooms-available-number"></p>
-              <ul class="room-types-available">
-                <li>Number of single rooms</li>
-                <li>Number of suites</li>
-                <li>Number of junior suites</li>
-                <li>Number of residential suites</li>
-              </ul>
-            </div>
+              <h5>Rooms Available</h5>
+              <div id="main-available-rooms-container" class="hidden">
+            <table id="main-tab-available-rooms" class="hidden">
+              <thead class="hidden" id="main-available-rooms-table">
+                <tr class="main-available-rooms hidden">
+                  <th class="main-available-rooms hidden">Room Number</th>
+                  <th class="main-available-rooms hidden">Room Type</th>
+                  <th class="main-available-rooms hidden">Bidet</th>
+                  <th class="main-available-rooms hidden">Bed Size</th>
+                  <th class="main-available-rooms hidden">Number of Beds</th>
+                  <th class="main-available-rooms hidden">Cost Per Night</th>
+                  <th class="main-available-rooms hidden">Select Room</th>
+                </tr>
+              </thead>
+            </table>
           </div>
-          <div class="center-main-container">
+            </div>
+          </div>          
+          <div class="right-main-container">
+            <div class="today-date container">
+              <h2>Today's Date</h2>
+              <p id="today">mm/dd/yyyy</p>
+            </div>
             <div class="daily-information container">
               <h2>All Daily</h2>
               <div>
@@ -43,12 +55,6 @@
                 <h4>Currently Booked Rooms:</h4>
                 <p id="daily-bookings"></p>
               </div>
-            </div>
-          </div>
-          <div class="right-main-container">
-            <div class="today-date container">
-              <h2>Today's Date</h2>
-              <p id="today">mm/dd/yyyy</p>
             </div>
             <div class="daily-revenue container">
               <h2>Total Daily Revenue</h2>
@@ -61,7 +67,7 @@
           </div>
         </section>
         <section id="customers-tab">
-          <form id="find-customers" class="container">
+          <form id="find-customers" class="customers-container container">
             <h2 id="current-customer" data="customer">
               Search for a customer:
             </h2>
@@ -87,14 +93,14 @@
               </button>
             </div>
           </form>
-          <div class="guest-stay-information container">
+          <div class="guest-stay-information container customers-container">
             <h2>Duration of stay</h2>
             <p>Room #</p>
             <p>Room type</p>
           </div>
         </section>
         <section id="orders-tab">
-          <form id="orders-tab-form" class="container">
+          <form id="orders-tab-form" class="orders-container">
             <h2 id="room-service-orders-header">Room service orders</h2>
             <input id="orders-calendar" type="date" />
             <button id="orders-calendar-btn" type="button">
@@ -102,7 +108,7 @@
             </button>
           </form>
           <div id="all-previous-room-service-orders" class="hidden"></div>
-          <div id="daily-room-service-orders" class="container"></div>
+          <div id="daily-room-service-orders" class="orders-container container"></div>
         </section>
         <section id="bookings-tab">
           <form id="bookings-tab-form" class="bookings-container">

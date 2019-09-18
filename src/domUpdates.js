@@ -87,7 +87,6 @@ const domUpdates = {
   },
 
   displayAvailableRoomsOnSpecifiedDate(room) {
-    $("#all-previous-bookings").addClass("container");
     $("#all-previous-bookings").removeClass("hidden");
     $("#available-bookings").addClass("container");
     $(`<tr class="book-room" data-room-number=${room.number}>
@@ -156,6 +155,35 @@ const domUpdates = {
     $("#available-rooms-date-container").removeClass("hidden");
     $("#available-rooms-date-table").removeClass("hidden");
     $(".available-bookings-table").removeClass("hidden");
+  },
+
+  appendAvailableRoomsToday(room) {
+    $('.main-available-rooms').removeClass('hidden');
+    $('#main-tab-available-rooms').removeClass('hidden');
+    $('#main-available-rooms-container').removeClass('hidden');
+    $(`<tr class="book-room" data-room-number=${room.number}>
+      <td>
+        ${room.number}
+      </td>
+      <td>
+        ${room.roomType}
+      </td>
+      <td>
+        ${room.bidet}
+      </td>
+      <td>
+        ${room.bedSize}
+      </td>
+      <td>
+        ${room.numBeds}
+      </td>
+      <td>
+        $${room.costPerNight}
+      </td>
+      <td>
+      <button data-id=${room.number} type="button">Book Room</button>
+      </td>
+    </tr>`).appendTo($("#main-tab-available-rooms"));
   }
 };
 

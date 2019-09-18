@@ -1,4 +1,4 @@
-# Overlook Hotel Management
+# Overlook Hotel Management Desktop App
 
 This is a rough draft of an inner hotel management application to oversee all bookings, customers, room service orders, and daily revenue for an individual hotel. Right now, users have the ability to:
 
@@ -20,9 +20,9 @@ Through this project, I challenged myself to:
 
 ## Setup
 
-### Clone Down and Run Locally
+Currently, to use this app, you will need to fork and clone down this repository
+<a href="https://github.com/vrandall66/Overlook">which can be found here</a>.
 
-Fork and clone down this repo.
 
 You will have to install the library dependencies
 
@@ -57,8 +57,10 @@ Open up http://localhost:8080/ in your browser to start using the app!
 
 ## Screenshots
 
-![Desktop View of the Homepage](images/Homepage.png "Desktop View of the Homepage")
+![Desktop View of the Homepage](../src/images/Homepage.png "Desktop View of the Homepage")
 
-![Desktop View of the Customers Tab](images/Customers.png "of the Customers Tab")
+![Desktop View of the Customers Tab](../src/images/Customers.png "of the Customers Tab")
 
-![Desktop View of the Bookings Tab while a current guest is selected](images/Bookings.png "Desktop View of the Bookings Tab while a current guest is selected")
+![Desktop View of the Bookings Tab while a current guest is selected](../src/images/Bookings.png "Desktop View of the Bookings Tab while a current guest is selected")
+
+### Built By [Vanessa Randall](https://github.com/vrandall66)
